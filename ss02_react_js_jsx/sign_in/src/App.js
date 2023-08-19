@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import './App.css';
-import SignIn from './pages/signIn';
-import SignUp from './pages/signUp';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
 
 function App() {
     const [showFormLogin, setShowFormLogin] = useState(true);

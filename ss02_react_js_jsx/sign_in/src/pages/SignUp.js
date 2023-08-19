@@ -1,5 +1,4 @@
 import React from "react";
-
 function SignUp(props) {
     console.log("A")
     return (
