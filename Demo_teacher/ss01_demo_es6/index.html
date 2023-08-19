@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // console.log(sum(4, 5));
+    // function sum(a, b) {
+    //     return a + b;
+    // }
+
+    // let sum = (a, b) => a + b;
+
+    let arr = [1, 2, 4, 0, 8];
+    // let arrNew = arr.forEach((value) => {
+    //     console.log(value);
+    //     return value + "A";
+    // })
+
+    // let arrNew = arr.map((value) => {
+    //     console.log(value);
+    //     return value + "A";
+    // })
+    // console.log(arrNew)
+
+    let arrNew = arr.filter((value, index) => (value % 2 === 0 && index % 2 !== 0))
+    console.log(arrNew);
+
+    let sum = arr.reduce((previousValue, currentValue) =>
+            (previousValue += currentValue)
+        , 10);
+
+    console.log(sum);
+
+    let max = arr.reduce((max, currentValue) => {
+        if(max < currentValue) {
+            max = currentValue;
+        }
+        return max;
+    });
+
+    console.log(max);
+</script>
+</body>
+</html>

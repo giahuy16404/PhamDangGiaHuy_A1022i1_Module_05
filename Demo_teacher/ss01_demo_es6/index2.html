@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function showLog(a, b, ...c) {
+        console.log(a);
+        console.log(b);
+        console.log(c)
+    }
+
+    showLog(5, 6, 7, 8, 9, 10)
+
+    let arr1 = [1, 2, 3, 4];
+    let arr2 = [1, 2, 3, 4];
+    let arr3 = [...arr1, ...arr2];
+    console.log(arr3);
+
+    let person = {
+        name: "HaiTT",
+        age: "18"
+    }
+
+    let student = {
+        ...person,
+        address: "Quảng Nam"
+    }
+
+    console.log(student)
+</script>
+</body>
+</html>
