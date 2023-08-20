@@ -1,12 +1,12 @@
+import logo from './logo.svg';
 import './App.css';
-import ShowList from "./components/ShowList";
 import React from "react";
-import AddStudent from "./components/AddStudent";
+import TodoList from "./components/TodoList";
 
 function App() {
   return (
     <div className="App">
-     <AddStudent/>
+      <TodoList/>
     </div>
   );
 }
