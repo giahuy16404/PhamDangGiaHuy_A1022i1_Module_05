@@ -1,11 +1,13 @@
 import './App.css';
-import Increment from "./components/Increment";
 import React from "react";
+import CountOne from "./components/CountOne";
+import CountTwo from "./components/CountTwo";
 
 function App() {
     return (
         <header className="App-header">
-            <Increment />
+            <CountOne/>
+            <CountTwo/>
         </header>
     );
 }
