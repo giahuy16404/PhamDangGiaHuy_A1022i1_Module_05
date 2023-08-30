@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form, Field } from "formik";
 import * as todoListService from "./service/TodoListService";
+import { toast } from "react-toastify";
 export const TodoList = () => {
   const [list, setList] = useState([]);
   useEffect(() => {
@@ -23,6 +24,7 @@ export const TodoList = () => {
           await todoListService.create(values);
           getAll();
           resetForm();
+          toast.success("OK !!");
         }}
       >
         <Form>
