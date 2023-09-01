@@ -6,59 +6,91 @@ export const ListService = () => {
   const serviceData = [
     {
       id: 1,
-      image:
+      serviceName: "Service 1",
+      usageArea: "100 m²",
+      rentalCost: "$200/day",
+      maxGuests: 2,
+      rentalType: "Daily rental",
+      otherFacilities: ["Air conditioning", "TV", "Wi-Fi"],
+      imageLink:
         "https://cdn.pixabay.com/photo/2016/07/07/23/17/colors-1503418_1280.png",
-      title: "Dịch vụ 1",
-      description: "Mô tả dịch vụ 1",
     },
     {
       id: 2,
-      image:
+      serviceName: "Service 2",
+      usageArea: "120 m²",
+      rentalCost: "$250/day",
+      maxGuests: 4,
+      rentalType: "Daily rental",
+      otherFacilities: ["Balcony", "Kitchenette", "Free breakfast"],
+      imageLink:
         "https://cdn.pixabay.com/photo/2016/07/07/23/17/colors-1503418_1280.png",
-      title: "Dịch vụ 2",
-      description: "Mô tả dịch vụ 2",
     },
     {
       id: 3,
-      image:
+      serviceName: "Service 3",
+      usageArea: "80 m²",
+      rentalCost: "$150/day",
+      maxGuests: 2,
+      rentalType: "Daily rental",
+      otherFacilities: ["Sea view", "Swimming pool", "Gym"],
+      imageLink:
         "https://cdn.pixabay.com/photo/2016/07/07/23/17/colors-1503418_1280.png",
-      title: "Dịch vụ 3",
-      description: "Mô tả dịch vụ 3",
     },
     {
       id: 4,
-      image:
+      serviceName: "Service 4",
+      usageArea: "60 m²",
+      rentalCost: "$120/day",
+      maxGuests: 3,
+      rentalType: "Daily rental",
+      otherFacilities: ["Garden view", "Free parking", "Bar"],
+      imageLink:
         "https://cdn.pixabay.com/photo/2016/07/07/23/17/colors-1503418_1280.png",
-      title: "Dịch vụ 4",
-      description: "Mô tả dịch vụ 4",
     },
     {
       id: 5,
-      image:
+      serviceName: "Service 5",
+      usageArea: "90 m²",
+      rentalCost: "$180/day",
+      maxGuests: 2,
+      rentalType: "Daily rental",
+      otherFacilities: ["Mountain view", "Spa", "Restaurant"],
+      imageLink:
         "https://cdn.pixabay.com/photo/2016/07/07/23/17/colors-1503418_1280.png",
-      title: "Dịch vụ 5",
-      description: "Mô tả dịch vụ 5",
     },
     {
       id: 6,
-      image:
+      serviceName: "Service 6",
+      usageArea: "70 m²",
+      rentalCost: "$140/day",
+      maxGuests: 3,
+      rentalType: "Daily rental",
+      otherFacilities: ["City view", "Laundry", "Room service"],
+      imageLink:
         "https://cdn.pixabay.com/photo/2016/07/07/23/17/colors-1503418_1280.png",
-      title: "Dịch vụ 6",
-      description: "Mô tả dịch vụ 6",
     },
     {
       id: 7,
-      image:
+      serviceName: "Service 7",
+      usageArea: "110 m²",
+      rentalCost: "$220/day",
+      maxGuests: 4,
+      rentalType: "Daily rental",
+      otherFacilities: ["Lake view", "Fitness center", "Concierge"],
+      imageLink:
         "https://cdn.pixabay.com/photo/2016/07/07/23/17/colors-1503418_1280.png",
-      title: "Dịch vụ 7",
-      description: "Mô tả dịch vụ 7",
     },
     {
       id: 8,
-      image:
+      serviceName: "Service 8",
+      usageArea: "130 m²",
+      rentalCost: "$270/day",
+      maxGuests: 5,
+      rentalType: "Daily rental",
+      otherFacilities: ["River view", "Pool bar", "Business center"],
+      imageLink:
         "https://cdn.pixabay.com/photo/2016/07/07/23/17/colors-1503418_1280.png",
-      title: "Dịch vụ 8",
-      description: "Mô tả dịch vụ 8",
     },
   ];
 
@@ -79,13 +111,13 @@ export const ListService = () => {
             <div class="col-sm" style={{ marginTop: "20px" }} key={value.id}>
               <div className="card" style={{ width: "18rem" }}>
                 <img
-                  src={value.image}
+                  src={value.imageLink}
                   className="card-img-top"
-                  alt={value.image}
+                  alt={value.imageLink}
                 />
                 <div className="card-body">
-                  <h5 className="card-title">{value.title}</h5>
-                  <p className="card-text">{value.description}</p>
+                  <h5 className="card-title">{value.serviceName}</h5>
+                  <p className="card-text">{value.usageArea}</p>
                   <button
                     className="card-text"
                     onClick={handleOpenModal}

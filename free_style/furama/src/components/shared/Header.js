@@ -40,9 +40,13 @@ export const Header = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link active" href="#">
+                <NavLink
+                  className="nav-link active"
+                  aria-current="page"
+                  to={"/customer"}
+                >
                   Customer
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item">
                 <a className="nav-link active" href="#">
