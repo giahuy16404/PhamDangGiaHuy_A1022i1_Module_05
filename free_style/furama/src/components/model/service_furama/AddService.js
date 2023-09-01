@@ -1,6 +1,6 @@
 import { Field, Form, Formik } from "formik";
 
-export const UpdateService = () => {
+export const AddService = () => {
   return (
     <>
       <h3 style={{ textAlign: "center" }}>Add Service</h3>

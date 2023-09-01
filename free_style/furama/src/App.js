@@ -5,6 +5,7 @@ import { Footer } from "./components/shared/Footer";
 import { Header } from "./components/shared/Header";
 import { HeaderImg } from "./components/shared/HeaderImg";
 import { UpdateService } from "./components/model/service_furama/Update";
+import { AddService } from "./components/model/service_furama/AddService";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
           <Routes>
             <Route path="/service" element={<Outlet />}>
               <Route index element={<ListService />} />
-              <Route path="update" element={<UpdateService />} />
+              <Route path="update/:id" element={<UpdateService />} />
+              <Route path="add" element={<AddService />} />
             </Route>
           </Routes>
           <Footer />
