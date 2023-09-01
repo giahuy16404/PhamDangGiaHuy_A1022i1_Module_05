@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 export const Header = () => {
   return (
     <>
@@ -24,27 +26,31 @@ export const Header = () => {
             {/* Left links */}
             <ul className="navbar-nav mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
+                <NavLink
+                  className="nav-link active"
+                  aria-current="page"
+                  to={"/service"}
+                >
                   Service
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link active" href="#">
                   Employee
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link active" href="#">
                   Customer
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link active" href="#">
                   Contract
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link active" href="#">
                   Booking
                 </a>
               </li>
