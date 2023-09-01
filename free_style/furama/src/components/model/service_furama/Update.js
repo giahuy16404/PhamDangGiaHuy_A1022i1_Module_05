@@ -3,7 +3,7 @@ import { Field, Form, Formik } from "formik";
 export const UpdateService = () => {
   return (
     <>
-      <h3 style={{ textAlign: "center" }}>Add Service</h3>
+      <h3 style={{ textAlign: "center" }}>Update Service</h3>
       <Formik
         initialValues={{
           image: "",
