@@ -6,6 +6,7 @@ export const UpdateService = () => {
       <h3 style={{ textAlign: "center" }}>Update Service</h3>
       <Formik
         initialValues={{
+          id: "",
           image: "",
           title: "",
           description: "",

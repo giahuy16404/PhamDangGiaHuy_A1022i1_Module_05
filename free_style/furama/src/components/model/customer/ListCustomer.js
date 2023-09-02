@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 export const ListCustomer = () => {
   const customerData = [
@@ -119,9 +120,11 @@ export const ListCustomer = () => {
               <td>{value.customerType}</td>
               <td>
                 <div className="d-flex justify-content-between">
-                  <button type="button" className="btn btn-success btn-sm">
-                    Update
-                  </button>
+                  <NavLink to={`/customer/update/${value.id}`}>
+                    <button type="button" className="btn btn-success btn-sm">
+                      Update
+                    </button>
+                  </NavLink>
                   <button type="button" className="btn btn-danger btn-sm">
                     Remove
                   </button>
@@ -141,7 +144,7 @@ export const ListCustomer = () => {
         }}
       >
         <button type="button" class="btn btn-primary">
-          Add Service
+          Add Customer
         </button>
       </div>
       {/* Pagination */}
