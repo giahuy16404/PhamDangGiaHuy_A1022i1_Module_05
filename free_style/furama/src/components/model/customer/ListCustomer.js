@@ -143,9 +143,11 @@ export const ListCustomer = () => {
           marginTop: "20px",
         }}
       >
-        <button type="button" class="btn btn-primary">
-          Add Customer
-        </button>
+        <NavLink to={"/customer/add"}>
+          <button type="button" class="btn btn-primary">
+            Add Customer
+          </button>
+        </NavLink>
       </div>
       {/* Pagination */}
       <div
