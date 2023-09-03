@@ -5,12 +5,14 @@ import { Footer } from "./components/shared/Footer";
 import { Header } from "./components/shared/Header";
 import { HeaderImg } from "./components/shared/HeaderImg";
 import { UpdateService } from "./components/model/service_furama/Update";
-import { AddService } from "./components/model/service_furama/AddService";
+import { AddService } from "./components/model/service_furama/AddVilla";
 import { ListCustomer } from "./components/model/customer_furama/ListCustomer";
 import { UpdateCustomer } from "./components/model/customer_furama/UpdateCustomer";
 import { AddCustomer } from "./components/model/customer_furama/AddCustomer";
 import { AddContract } from "./components/model/contract_furama/AddContract";
 import { ListContract } from "./components/model/contract_furama/ListContract";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -18,12 +20,15 @@ function App() {
       <HeaderImg />
       <div className="container">
         <BrowserRouter>
+        <ToastContainer/>
           <Header />
           <Routes>
             <Route path="/service" element={<Outlet />}>
               <Route index element={<ListService />} />
               <Route path="update/:id" element={<UpdateService />} />
-              <Route path="add" element={<AddService />} />
+              <Route path="add-villa" element={<AddService />} />
+              <Route path="add-house" element={<AddService />} />
+              <Route path="add-room" element={<AddService />} />
             </Route>
 
             <Route path="/customer" element={<Outlet />}>

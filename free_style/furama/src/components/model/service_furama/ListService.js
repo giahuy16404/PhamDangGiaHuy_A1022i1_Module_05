@@ -1,106 +1,42 @@
 import { NavLink } from "react-router-dom";
 import { RemoveModal } from "./RemoveServiceModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import * as serviceFurama from "../../../service/service_furama_service/serviceFuramaService";
+import { ModalSelectAddService } from "./ModalSelectAddService";
 
 export const ListService = () => {
-  const serviceData = [
-    {
-      id: 1,
-      serviceName: "Service 1",
-      usageArea: "100 m²",
-      rentalCost: "$200/day",
-      maxGuests: 2,
-      rentalType: "Daily rental",
-      otherFacilities: ["Air conditioning", "TV", "Wi-Fi"],
-      imageLink:
-        "https://cdn.pixabay.com/photo/2016/07/07/23/17/colors-1503418_1280.png",
-    },
-    {
-      id: 2,
-      serviceName: "Service 2",
-      usageArea: "120 m²",
-      rentalCost: "$250/day",
-      maxGuests: 4,
-      rentalType: "Daily rental",
-      otherFacilities: ["Balcony", "Kitchenette", "Free breakfast"],
-      imageLink:
-        "https://cdn.pixabay.com/photo/2016/07/07/23/17/colors-1503418_1280.png",
-    },
-    {
-      id: 3,
-      serviceName: "Service 3",
-      usageArea: "80 m²",
-      rentalCost: "$150/day",
-      maxGuests: 2,
-      rentalType: "Daily rental",
-      otherFacilities: ["Sea view", "Swimming pool", "Gym"],
-      imageLink:
-        "https://cdn.pixabay.com/photo/2016/07/07/23/17/colors-1503418_1280.png",
-    },
-    {
-      id: 4,
-      serviceName: "Service 4",
-      usageArea: "60 m²",
-      rentalCost: "$120/day",
-      maxGuests: 3,
-      rentalType: "Daily rental",
-      otherFacilities: ["Garden view", "Free parking", "Bar"],
-      imageLink:
-        "https://cdn.pixabay.com/photo/2016/07/07/23/17/colors-1503418_1280.png",
-    },
-    {
-      id: 5,
-      serviceName: "Service 5",
-      usageArea: "90 m²",
-      rentalCost: "$180/day",
-      maxGuests: 2,
-      rentalType: "Daily rental",
-      otherFacilities: ["Mountain view", "Spa", "Restaurant"],
-      imageLink:
-        "https://cdn.pixabay.com/photo/2016/07/07/23/17/colors-1503418_1280.png",
-    },
-    {
-      id: 6,
-      serviceName: "Service 6",
-      usageArea: "70 m²",
-      rentalCost: "$140/day",
-      maxGuests: 3,
-      rentalType: "Daily rental",
-      otherFacilities: ["City view", "Laundry", "Room service"],
-      imageLink:
-        "https://cdn.pixabay.com/photo/2016/07/07/23/17/colors-1503418_1280.png",
-    },
-    {
-      id: 7,
-      serviceName: "Service 7",
-      usageArea: "110 m²",
-      rentalCost: "$220/day",
-      maxGuests: 4,
-      rentalType: "Daily rental",
-      otherFacilities: ["Lake view", "Fitness center", "Concierge"],
-      imageLink:
-        "https://cdn.pixabay.com/photo/2016/07/07/23/17/colors-1503418_1280.png",
-    },
-    {
-      id: 8,
-      serviceName: "Service 8",
-      usageArea: "130 m²",
-      rentalCost: "$270/day",
-      maxGuests: 5,
-      rentalType: "Daily rental",
-      otherFacilities: ["River view", "Pool bar", "Business center"],
-      imageLink:
-        "https://cdn.pixabay.com/photo/2016/07/07/23/17/colors-1503418_1280.png",
-    },
-  ];
-
-  const [serviceList, setServiceList] = useState(serviceData);
-  const [openModal, setOpenModal] = useState(false);
-  const handleOpenModal = () => {
-    setOpenModal(true);
+  const [serviceList, setServiceList] = useState([]);
+  const [openModalRemove, setOpenModalRemove] = useState(false);
+  const [openModalAdd, setOpenModalAdd] = useState(false);
+  const [page, setPage] = useState(1);
+  const handleOpenModalAdd = () => {
+    setOpenModalAdd(true);
   };
-  const handleCloseModal = () => {
-    setOpenModal(false);
+  const handleCloseModalAdd = () => {
+    setOpenModalAdd(false);
+  };
+
+  const handleOpenModalRemove = () => {
+    setOpenModalRemove(true);
+  };
+  const handleCloseModalRemove = () => {
+    setOpenModalRemove(false);
+  };
+
+  //Call api list
+  useEffect(() => {
+    getListService(page);
+  }, [page]);
+
+  const getListService = async (page) => {
+    const dataServiceList = await serviceFurama.getList(page);
+    setServiceList(dataServiceList);
+  };
+  const handleNextPage = () => {
+    setPage((prev) => prev + 1);
+  };
+  const handlePreviousPage = () => {
+    setPage((prev) => prev - 1);
   };
   return (
     <>
@@ -120,7 +56,7 @@ export const ListService = () => {
                   <p className="card-text">{value.usageArea}</p>
                   <button
                     className="card-text"
-                    onClick={handleOpenModal}
+                    onClick={handleOpenModalRemove}
                     style={{ marginRight: "10px" }}
                   >
                     Remove
@@ -143,11 +79,13 @@ export const ListService = () => {
           marginTop: "20px",
         }}
       >
-        <NavLink to={"/service/add"}>
-          <button type="button" class="btn btn-primary">
-            Add Service
-          </button>
-        </NavLink>
+        <button
+          type="button"
+          class="btn btn-primary"
+          onClick={handleOpenModalAdd}
+        >
+          Add Service
+        </button>
       </div>
 
       {/* Pagination */}
@@ -155,25 +93,44 @@ export const ListService = () => {
         <nav aria-label="Page navigation example">
           <ul class="pagination">
             <li class="page-item">
-              <a class="page-link" href="#">
+              <button class="page-link" onClick={handlePreviousPage}>
                 Previous
-              </a>
+              </button>
             </li>
             <li class="page-item">
-              <a class="page-link" href="#">
+              <span class="page-link" href="#">
+                {page}
+              </span>
+            </li>
+            <li class="page-item">
+              <span class="page-link" href="#">
+                /
+              </span>
+            </li>
+            <li class="page-item">
+              <span class="page-link" href="#">
                 1
-              </a>
+              </span>
             </li>
             <li class="page-item">
-              <a class="page-link" href="#">
+              <button class="page-link" onClick={handleNextPage}>
                 Next
-              </a>
+              </button>
             </li>
           </ul>
         </nav>
       </div>
-      {openModal && (
-        <RemoveModal openModal={openModal} closeModal={handleCloseModal} />
+      {openModalRemove && (
+        <RemoveModal
+          openModal={openModalRemove}
+          closeModal={handleCloseModalRemove}
+        />
+      )}
+      {openModalAdd && (
+        <ModalSelectAddService
+          openModal={openModalAdd}
+          closeModal={handleCloseModalAdd}
+        />
       )}
     </>
   );

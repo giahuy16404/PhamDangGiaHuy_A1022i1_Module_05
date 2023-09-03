@@ -1,0 +1,62 @@
+{
+  "service": [
+    {
+      "id": 1,
+      "serviceName": "Villa 1",
+      "serviceType": "Villa",
+      "usageArea": 2000,
+      "rentalCost": 2000,
+      "maxGuests": 2,
+      "rentalType": "Year",
+      "otherFacilities": [],
+      "poolArea": 12000,
+      "numberOfFloors": 18,
+      "imageLink": "https://cdn.pixabay.com/photo/2016/07/07/23/17/colors-1503418_1280.png"
+    },
+    {
+      "id": 2,
+      "serviceName": "House 1",
+      "serviceType": "House",
+      "usageArea": 2000,
+      "rentalCost": 2000,
+      "maxGuests": 2,
+      "rentalType": "Year",
+      "otherFacilities": [],
+      "poolArea": "",
+      "numberOfFloors": 18,
+      "imageLink": "https://cdn.pixabay.com/photo/2016/07/07/23/17/colors-1503418_1280.png"
+    },
+    {
+      "id": 3,
+      "serviceName": "Room 1",
+      "serviceType": "Room",
+      "usageArea": 2000,
+      "rentalCost": 2000,
+      "maxGuests": 2,
+      "rentalType": "Year",
+      "otherFacilities": [],
+      "poolArea": "",
+      "numberOfFloors": 0,
+      "imageLink": "https://cdn.pixabay.com/photo/2016/07/07/23/17/colors-1503418_1280.png"
+    },
+    {
+      "serviceName": "123",
+      "serviceType": "Villa",
+      "usageArea": 122,
+      "rentalCost": 123,
+      "maxGuests": 123,
+      "rentalType": "Day",
+      "otherFacilities": [],
+      "poolArea": 123,
+      "numberOfFloors": 123,
+      "imageLink": "https://cdn.pixabay.com/photo/2016/07/07/23/17/colors-1503418_1280.png",
+      "id": 4
+    }
+  ],
+  "customer": [
+    {}
+  ],
+  "contract": [
+    {}
+  ]
+}
