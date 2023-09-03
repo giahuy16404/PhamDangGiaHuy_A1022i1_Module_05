@@ -49,18 +49,19 @@ export const Header = () => {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link active" href="#">
+                <NavLink
+                  className="nav-link active"
+                  aria-current="page"
+                  to={"/contract"}
+                >
                   Contract
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link active" href="#">
-                  Booking
-                </a>
+                </NavLink>
               </li>
             </ul>
+
             {/* Left links */}
           </div>
+
           {/* Collapsible wrapper */}
         </div>
         {/* Container wrapper */}
