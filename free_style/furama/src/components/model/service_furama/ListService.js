@@ -61,7 +61,7 @@ export const ListService = () => {
                   >
                     Remove
                   </button>
-                  <NavLink to={`/service/update/${value.id}`}>
+                  <NavLink to={`/service/update/${value.serviceType}/${value.id}`}>
                     <button className="card-text">Update</button>
                   </NavLink>
                 </div>

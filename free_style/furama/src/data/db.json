@@ -2,13 +2,15 @@
   "service": [
     {
       "id": 1,
-      "serviceName": "Villa 1",
+      "serviceName": "Villa 2",
       "serviceType": "Villa",
       "usageArea": 2000,
       "rentalCost": 2000,
       "maxGuests": 2,
       "rentalType": "Year",
-      "otherFacilities": [],
+      "otherFacilities": [
+        []
+      ],
       "poolArea": 12000,
       "numberOfFloors": 18,
       "imageLink": "https://cdn.pixabay.com/photo/2016/07/07/23/17/colors-1503418_1280.png"
@@ -51,11 +53,143 @@
       "numberOfFloors": 123,
       "imageLink": "https://cdn.pixabay.com/photo/2016/07/07/23/17/colors-1503418_1280.png",
       "id": 4
+    },
+    {
+      "serviceName": "1",
+      "serviceType": "Villa",
+      "usageArea": 1,
+      "rentalCost": -11,
+      "maxGuests": 1,
+      "rentalType": "Month",
+      "otherFacilities": [],
+      "poolArea": 1,
+      "numberOfFloors": 12,
+      "imageLink": "https://cdn.pixabay.com/photo/2016/07/07/23/17/colors-1503418_1280.png",
+      "id": 5
+    },
+    {
+      "serviceName": "12",
+      "serviceType": "Villa",
+      "usageArea": 12,
+      "rentalCost": 12,
+      "maxGuests": 12,
+      "rentalType": "Year",
+      "otherFacilities": [],
+      "poolArea": 0,
+      "numberOfFloors": 12,
+      "imageLink": "https://cdn.pixabay.com/photo/2016/07/07/23/17/colors-1503418_1280.png",
+      "id": 6
+    },
+    {
+      "serviceName": "1231",
+      "serviceType": "Villa",
+      "usageArea": 123,
+      "rentalCost": 123,
+      "maxGuests": 123,
+      "rentalType": "Month",
+      "otherFacilities": [],
+      "poolArea": 0,
+      "numberOfFloors": 0,
+      "imageLink": "https://cdn.pixabay.com/photo/2016/07/07/23/17/colors-1503418_1280.png",
+      "id": 7
+    },
+    {
+      "serviceName": "123",
+      "serviceType": "Villa",
+      "usageArea": 123,
+      "rentalCost": 123,
+      "maxGuests": 123,
+      "rentalType": "Month",
+      "otherFacilities": [],
+      "poolArea": 0,
+      "numberOfFloors": 0,
+      "imageLink": "https://cdn.pixabay.com/photo/2016/07/07/23/17/colors-1503418_1280.png",
+      "id": 8
     }
   ],
   "customer": [
-    {}
-  ],
+    
+      {
+        "id": 1,
+        "fullName": "Nguyen Van A",
+        "dateOfBirth": "1990-01-15",
+        "gender": "Male",
+        "identityNumber": "123456789",
+        "phoneNumber": "0987654321",
+        "email": "nguyenvana@example.com",
+        "customerType": "Diamond"
+      },
+      {
+        "id": 2,
+        "fullName": "Tran Thi B",
+        "dateOfBirth": "1985-03-20",
+        "gender": "Female",
+        "identityNumber": "987654321",
+        "phoneNumber": "0123456789",
+        "email": "tranthib@example.com",
+        "customerType": "Platinum"
+      },
+      {
+        "id": 3,
+        "fullName": "Le Van C",
+        "dateOfBirth": "1992-07-10",
+        "gender": "Male",
+        "identityNumber": "567890123",
+        "phoneNumber": "0789654321",
+        "email": "levanc@example.com",
+        "customerType": "Gold"
+      },
+      {
+        "id": 4,
+        "fullName": "Pham Thi D",
+        "dateOfBirth": "1998-05-25",
+        "gender": "Female",
+        "identityNumber": "234567890",
+        "phoneNumber": "0912345678",
+        "email": "phamthid@example.com",
+        "customerType": "Silver"
+      },
+      {
+        "id": 5,
+        "fullName": "Hoang Van E",
+        "dateOfBirth": "1980-11-02",
+        "gender": "Male",
+        "identityNumber": "345678901",
+        "phoneNumber": "0890123456",
+        "email": "hoangvane@example.com",
+        "customerType": "Member"
+      },
+      {
+        "id": 6,
+        "fullName": "Tran Van F",
+        "dateOfBirth": "1995-09-12",
+        "gender": "Male",
+        "identityNumber": "456789012",
+        "phoneNumber": "0765432198",
+        "email": "tranvanf@example.com",
+        "customerType": "Diamond"
+      },
+      {
+        "id": 7,
+        "fullName": "Nguyen Thi G",
+        "dateOfBirth": "1987-04-30",
+        "gender": "Female",
+        "identityNumber": "678901234",
+        "phoneNumber": "0976543210",
+        "email": "nguyenthig@example.com",
+        "customerType": "Platinum"
+      },
+      {
+        "id": 8,
+        "fullName": "Le Van H",
+        "dateOfBirth": "1993-12-08",
+        "gender": "Male",
+        "identityNumber": "789012345",
+        "phoneNumber": "0854321098",
+        "email": "levanh@example.com",
+        "customerType": "Gold"
+      }
+    ],
   "contract": [
     {}
   ]

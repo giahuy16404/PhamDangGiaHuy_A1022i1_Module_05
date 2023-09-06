@@ -1,29 +1,41 @@
 import { Field, Form, Formik } from "formik";
 import { toast } from "react-toastify";
 import * as serviceFurama from "../../../service/service_furama_service/serviceFuramaService";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-export const AddVilla = () => {
+export const UpdateRoom = () => {
   const navigate = useNavigate();
+  const idUpdate = useParams();
+  const [room, setRoom] = useState([]);
+  useEffect(() => {
+    findById();
+  }, []);
+  const findById = async () => {
+    const dataRoom = await serviceFurama.findById(idUpdate.id);
+    setRoom(dataRoom);
+  };
   return (
     <>
-      <h3 style={{ textAlign: "center" }}>Add Villa</h3>
+      <h3 style={{ textAlign: "center" }}>Update Room</h3>
       <Formik
+        enableReinitialize={true}
         initialValues={{
-          serviceName: "",
-          serviceType: "Villa",
-          usageArea: 0,
-          rentalCost: 0,
-          maxGuests: 0,
-          rentalType: "",
-          otherFacilities: [],
-          poolArea: 0,
-          numberOfFloors: 0,
-          imageLink: "",
+          id: room.id,
+          serviceName: room.serviceName,
+          serviceType: room.serviceType,
+          usageArea: room.usageArea,
+          rentalCost: room.rentalCost,
+          maxGuests: room.maxGuests,
+          rentalType: room.rentalType,
+          otherFacilities: [room.otherFacilities],
+          poolArea: room.poolArea,
+          numberOfFloors: room.numberOfFloors,
+          imageLink: room.imageLink,
         }}
         onSubmit={(values, { setSubmitting }) => {
-          serviceFurama.add(values);
-          setSubmitting(false)
+          serviceFurama.update(idUpdate.id, values);
+          setSubmitting(false);
           toast.success("Successfully!!");
           navigate("/service");
         }}
@@ -95,59 +107,6 @@ export const AddVilla = () => {
             </Field>
           </div>
           <div className="mb-3">
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                defaultValue
-                id="A"
-                name="otherFacilities"
-                value="A"
-              />
-              <label className="form-check-label" htmlFor="A">
-                A
-              </label>
-            </div>
-
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                defaultValue
-                id="B"
-                name="otherFacilities"
-                value="B"
-              />
-              <label className="form-check-label" htmlFor="B">
-                B
-              </label>
-            </div>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="rentalCost" className="form-label">
-              Pool Area
-            </label>
-            <Field
-              type="number"
-              className="form-control"
-              id="poolArea"
-              placeholder="Pool Area"
-              name="poolArea"
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="numberOfFloors" className="form-label">
-              Number Of Floors
-            </label>
-            <Field
-              type="number"
-              className="form-control"
-              id="numberOfFloors"
-              placeholder="Pool Area"
-              name="numberOfFloors"
-            />
-          </div>
-          <div className="mb-3">
             <label htmlFor="imageLink" className="form-label">
               Image Link
             </label>
@@ -164,7 +123,7 @@ export const AddVilla = () => {
             style={{ marginBottom: "20px", marginTop: "20px" }}
           >
             <button type="submit" className="btn btn-primary">
-              Add
+              Update
             </button>
           </div>
         </Form>

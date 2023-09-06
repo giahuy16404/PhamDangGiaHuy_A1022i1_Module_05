@@ -3,11 +3,11 @@ import { toast } from "react-toastify";
 import * as serviceFurama from "../../../service/service_furama_service/serviceFuramaService";
 import { useNavigate } from "react-router-dom";
 
-export const AddVilla = () => {
+export const AddHouse = () => {
   const navigate = useNavigate();
   return (
     <>
-      <h3 style={{ textAlign: "center" }}>Add Villa</h3>
+      <h3 style={{ textAlign: "center" }}>Add House</h3>
       <Formik
         initialValues={{
           serviceName: "",
@@ -23,7 +23,7 @@ export const AddVilla = () => {
         }}
         onSubmit={(values, { setSubmitting }) => {
           serviceFurama.add(values);
-          setSubmitting(false)
+          setSubmitting(false);
           toast.success("Successfully!!");
           navigate("/service");
         }}
@@ -122,18 +122,6 @@ export const AddVilla = () => {
                 B
               </label>
             </div>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="rentalCost" className="form-label">
-              Pool Area
-            </label>
-            <Field
-              type="number"
-              className="form-control"
-              id="poolArea"
-              placeholder="Pool Area"
-              name="poolArea"
-            />
           </div>
           <div className="mb-3">
             <label htmlFor="numberOfFloors" className="form-label">

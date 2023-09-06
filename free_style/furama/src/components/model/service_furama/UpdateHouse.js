@@ -1,29 +1,41 @@
 import { Field, Form, Formik } from "formik";
 import { toast } from "react-toastify";
 import * as serviceFurama from "../../../service/service_furama_service/serviceFuramaService";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-export const AddVilla = () => {
+export const UpdateHouse = () => {
   const navigate = useNavigate();
+  const idUpdate = useParams();
+  const [house, setHouse] = useState([]);
+  useEffect(() => {
+    findById();
+  }, []);
+  const findById = async () => {
+    const dataHouse = await serviceFurama.findById(idUpdate.id);
+    setHouse(dataHouse);
+  };
   return (
     <>
-      <h3 style={{ textAlign: "center" }}>Add Villa</h3>
+      <h3 style={{ textAlign: "center" }}>Update House</h3>
       <Formik
+        enableReinitialize={true}
         initialValues={{
-          serviceName: "",
-          serviceType: "Villa",
-          usageArea: 0,
-          rentalCost: 0,
-          maxGuests: 0,
-          rentalType: "",
-          otherFacilities: [],
-          poolArea: 0,
-          numberOfFloors: 0,
-          imageLink: "",
+          id: house.id,
+          serviceName: house.serviceName,
+          serviceType: house.serviceType,
+          usageArea: house.usageArea,
+          rentalCost: house.rentalCost,
+          maxGuests: house.maxGuests,
+          rentalType: house.rentalType,
+          otherFacilities: [house.otherFacilities],
+          poolArea: house.poolArea,
+          numberOfFloors: house.numberOfFloors,
+          imageLink: house.imageLink,
         }}
         onSubmit={(values, { setSubmitting }) => {
-          serviceFurama.add(values);
-          setSubmitting(false)
+          serviceFurama.update(idUpdate.id, values);
+          setSubmitting(false);
           toast.success("Successfully!!");
           navigate("/service");
         }}
@@ -99,7 +111,6 @@ export const AddVilla = () => {
               <input
                 className="form-check-input"
                 type="checkbox"
-                defaultValue
                 id="A"
                 name="otherFacilities"
                 value="A"
@@ -113,7 +124,6 @@ export const AddVilla = () => {
               <input
                 className="form-check-input"
                 type="checkbox"
-                defaultValue
                 id="B"
                 name="otherFacilities"
                 value="B"
@@ -122,18 +132,6 @@ export const AddVilla = () => {
                 B
               </label>
             </div>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="rentalCost" className="form-label">
-              Pool Area
-            </label>
-            <Field
-              type="number"
-              className="form-control"
-              id="poolArea"
-              placeholder="Pool Area"
-              name="poolArea"
-            />
           </div>
           <div className="mb-3">
             <label htmlFor="numberOfFloors" className="form-label">
@@ -164,7 +162,7 @@ export const AddVilla = () => {
             style={{ marginBottom: "20px", marginTop: "20px" }}
           >
             <button type="submit" className="btn btn-primary">
-              Add
+              Update
             </button>
           </div>
         </Form>
