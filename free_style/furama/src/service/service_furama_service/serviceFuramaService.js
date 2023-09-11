@@ -3,7 +3,7 @@ import axios from "axios";
 export const getList = async (page) => {
   try {
     const data = await axios.get(
-      `http://localhost:8080/service?_page=${page}&limit=8`
+      `http://localhost:8080/service?_page=${page}&_limit=8`
     );
     return data.data;
   } catch (e) {
@@ -32,6 +32,15 @@ export const update = async (id, value) => {
 export const findById = async (id) => {
   try {
     const data = await axios.get(`http://localhost:8080/service/${id}`);
+    return data.data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const remove = async (id) => {
+  try {
+    const data = await axios.delete(`http://localhost:8080/service/${id}`);
     return data.data;
   } catch (e) {
     console.log(e);

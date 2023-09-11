@@ -1,7 +1,8 @@
-import { Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { toast } from "react-toastify";
 import * as serviceFurama from "../../../service/service_furama_service/serviceFuramaService";
 import { useNavigate } from "react-router-dom";
+import * as Yup from "yup";
 
 export const AddHouse = () => {
   const navigate = useNavigate();
@@ -10,16 +11,15 @@ export const AddHouse = () => {
       <h3 style={{ textAlign: "center" }}>Add House</h3>
       <Formik
         initialValues={{
-          serviceName: "",
+          serviceName: undefined,
           serviceType: "Villa",
-          usageArea: 0,
-          rentalCost: 0,
-          maxGuests: 0,
-          rentalType: "",
+          usageArea: undefined,
+          rentalCost: undefined,
+          maxGuests: undefined,
+          rentalType: undefined,
           otherFacilities: [],
-          poolArea: 0,
-          numberOfFloors: 0,
-          imageLink: "",
+          numberOfFloors: undefined,
+          imageLink: undefined,
         }}
         onSubmit={(values, { setSubmitting }) => {
           serviceFurama.add(values);
@@ -27,6 +27,14 @@ export const AddHouse = () => {
           toast.success("Successfully!!");
           navigate("/service");
         }}
+        validationSchema={Yup.object({
+          serviceName: Yup.string().required("Required"),
+          usageArea: Yup.number().required("Required"),
+          rentalCost: Yup.string().required("Required"),
+          maxGuests: Yup.number().required("Required"),
+          rentalType: Yup.string().required("Required"),
+          numberOfFloors: Yup.string().required("Required"),
+        })}
       >
         <Form>
           <div className="mb-3">
@@ -40,6 +48,11 @@ export const AddHouse = () => {
               placeholder="Enter Service Name"
               name="serviceName"
             />
+            <ErrorMessage
+              className="form-err"
+              name="serviceName"
+              component="span"
+            ></ErrorMessage>
           </div>
           <div className="mb-3">
             <label htmlFor="usageArea" className="form-label">
@@ -51,7 +64,12 @@ export const AddHouse = () => {
               id="usageArea"
               placeholder="Enter Area"
               name="usageArea"
-            />
+            />{" "}
+            <ErrorMessage
+              className="form-err"
+              name="usageArea"
+              component="span"
+            ></ErrorMessage>
           </div>
           <div className="mb-3">
             <label htmlFor="rentalCost" className="form-label">
@@ -63,7 +81,12 @@ export const AddHouse = () => {
               id="rentalCost"
               placeholder="Enter  Rental Cost"
               name="rentalCost"
-            />
+            />{" "}
+            <ErrorMessage
+              className="form-err"
+              name="rentalCost"
+              component="span"
+            ></ErrorMessage>
           </div>
           <div className="mb-3">
             <label htmlFor="rentalCost" className="form-label">
@@ -75,7 +98,12 @@ export const AddHouse = () => {
               id="maxGuests"
               placeholder="Enter  Max People"
               name="maxGuests"
-            />
+            />{" "}
+            <ErrorMessage
+              className="form-err"
+              name="maxGuests"
+              component="span"
+            ></ErrorMessage>
           </div>
           <div className="mb-3">
             <label htmlFor="rentalCost" className="form-label">
@@ -96,10 +124,9 @@ export const AddHouse = () => {
           </div>
           <div className="mb-3">
             <div className="form-check">
-              <input
+              <Field
                 className="form-check-input"
                 type="checkbox"
-                defaultValue
                 id="A"
                 name="otherFacilities"
                 value="A"
@@ -110,10 +137,9 @@ export const AddHouse = () => {
             </div>
 
             <div className="form-check">
-              <input
+              <Field
                 className="form-check-input"
                 type="checkbox"
-                defaultValue
                 id="B"
                 name="otherFacilities"
                 value="B"
@@ -122,6 +148,23 @@ export const AddHouse = () => {
                 B
               </label>
             </div>
+          </div>
+          <div className="mb-3">
+            <label htmlFor="rentalCost" className="form-label">
+              Pool Area
+            </label>
+            <Field
+              type="number"
+              className="form-control"
+              id="poolArea"
+              placeholder="Pool Area"
+              name="poolArea"
+            />{" "}
+            <ErrorMessage
+              className="form-err"
+              name="poolArea"
+              component="span"
+            ></ErrorMessage>
           </div>
           <div className="mb-3">
             <label htmlFor="numberOfFloors" className="form-label">
@@ -133,7 +176,12 @@ export const AddHouse = () => {
               id="numberOfFloors"
               placeholder="Pool Area"
               name="numberOfFloors"
-            />
+            />{" "}
+            <ErrorMessage
+              className="form-err"
+              name="numberOfFloors"
+              component="span"
+            ></ErrorMessage>
           </div>
           <div className="mb-3">
             <label htmlFor="imageLink" className="form-label">

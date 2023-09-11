@@ -4,9 +4,14 @@ import Modal from "react-bootstrap/Modal";
 
 export function RemoveModal(props) {
   const [show, setShow] = useState(false);
-  const { openModal, closeModal } = props;
+  const { openModal, closeModal, handleRemove } = props;
 
   const handleClose = () => {
+    setShow(false);
+    closeModal();
+  };
+  const handleSubmit = () => {
+    handleRemove();
     setShow(false);
     closeModal();
   };
@@ -19,14 +24,14 @@ export function RemoveModal(props) {
     <>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Modal Remove</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+        <Modal.Body>Xác nhận xóa!</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleSubmit}>
             Save Changes
           </Button>
         </Modal.Footer>

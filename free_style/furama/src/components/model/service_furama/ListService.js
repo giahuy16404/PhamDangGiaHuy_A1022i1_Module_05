@@ -9,6 +9,7 @@ export const ListService = () => {
   const [openModalRemove, setOpenModalRemove] = useState(false);
   const [openModalAdd, setOpenModalAdd] = useState(false);
   const [page, setPage] = useState(1);
+  const [idRemove, setIdRemove] = useState();
   const handleOpenModalAdd = () => {
     setOpenModalAdd(true);
   };
@@ -38,6 +39,13 @@ export const ListService = () => {
   const handlePreviousPage = () => {
     setPage((prev) => prev - 1);
   };
+
+  //Remove facility
+  const handleRemove = async () => {
+    console.log(idRemove);
+    await serviceFurama.remove(idRemove);
+    getListService(page);
+  };
   return (
     <>
       {/* Card List Service */}
@@ -56,12 +64,17 @@ export const ListService = () => {
                   <p className="card-text">{value.usageArea}</p>
                   <button
                     className="card-text"
-                    onClick={handleOpenModalRemove}
+                    onClick={() => {
+                      handleOpenModalRemove();
+                      setIdRemove(value.id);
+                    }}
                     style={{ marginRight: "10px" }}
                   >
                     Remove
                   </button>
-                  <NavLink to={`/service/update/${value.serviceType}/${value.id}`}>
+                  <NavLink
+                    to={`/service/update/${value.serviceType}/${value.id}`}
+                  >
                     <button className="card-text">Update</button>
                   </NavLink>
                 </div>
@@ -124,6 +137,7 @@ export const ListService = () => {
         <RemoveModal
           openModal={openModalRemove}
           closeModal={handleCloseModalRemove}
+          handleRemove={handleRemove}
         />
       )}
       {openModalAdd && (

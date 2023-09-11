@@ -7,7 +7,6 @@ export const ListCustomer = () => {
 
   const getList = async (page) => {
     const data = await customerService.getList(page);
-    console.log(data);
     setCustomerList(data);
   };
   const handleNextPage = () => {
@@ -49,10 +48,10 @@ export const ListCustomer = () => {
               <th scope="row">{index + 1}</th>
               <td>{value.fullName}</td>
               <td>{value.dateOfBirth}</td>
-              <td>{value.gender}</td>
+              <td>{value.gender === "0" ? "Nam" : "Nu"}</td>
               <td>{value.phoneNumber}</td>
               <td>{value.email}</td>
-              <td>{value.customerType}</td>
+              <td>{value.customerType.type}</td>
               <td>
                 <div className="d-flex justify-content-between">
                   <NavLink to={`/customer/update/${value.id}`}>

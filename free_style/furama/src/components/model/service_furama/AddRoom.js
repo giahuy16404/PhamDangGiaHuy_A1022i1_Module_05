@@ -1,7 +1,8 @@
-import { Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { toast } from "react-toastify";
 import * as serviceFurama from "../../../service/service_furama_service/serviceFuramaService";
 import { useNavigate } from "react-router-dom";
+import * as Yup from "yup";
 
 export const AddRoom = () => {
   const navigate = useNavigate();
@@ -10,16 +11,13 @@ export const AddRoom = () => {
       <h3 style={{ textAlign: "center" }}>Add Room</h3>
       <Formik
         initialValues={{
-          serviceName: "",
+          serviceName: undefined,
           serviceType: "Villa",
-          usageArea: 0,
-          rentalCost: 0,
-          maxGuests: 0,
-          rentalType: "",
-          otherFacilities: [],
-          poolArea: 0,
-          numberOfFloors: 0,
-          imageLink: "",
+          usageArea: undefined,
+          rentalCost: undefined,
+          maxGuests: undefined,
+          rentalType: undefined,
+          imageLink: undefined,
         }}
         onSubmit={(values, { setSubmitting }) => {
           serviceFurama.add(values);
@@ -27,6 +25,13 @@ export const AddRoom = () => {
           toast.success("Successfully!!");
           navigate("/service");
         }}
+        validationSchema={Yup.object({
+          serviceName: Yup.string().required("Required"),
+          usageArea: Yup.number().required("Required"),
+          rentalCost: Yup.string().required("Required"),
+          maxGuests: Yup.number().required("Required"),
+          rentalType: Yup.string().required("Required"),
+        })}
       >
         <Form>
           <div className="mb-3">
@@ -40,6 +45,11 @@ export const AddRoom = () => {
               placeholder="Enter Service Name"
               name="serviceName"
             />
+            <ErrorMessage
+              className="form-err"
+              name="serviceName"
+              component="span"
+            ></ErrorMessage>
           </div>
           <div className="mb-3">
             <label htmlFor="usageArea" className="form-label">
@@ -51,7 +61,12 @@ export const AddRoom = () => {
               id="usageArea"
               placeholder="Enter Area"
               name="usageArea"
-            />
+            />{" "}
+            <ErrorMessage
+              className="form-err"
+              name="usageArea"
+              component="span"
+            ></ErrorMessage>
           </div>
           <div className="mb-3">
             <label htmlFor="rentalCost" className="form-label">
@@ -63,7 +78,12 @@ export const AddRoom = () => {
               id="rentalCost"
               placeholder="Enter  Rental Cost"
               name="rentalCost"
-            />
+            />{" "}
+            <ErrorMessage
+              className="form-err"
+              name="rentalCost"
+              component="span"
+            ></ErrorMessage>
           </div>
           <div className="mb-3">
             <label htmlFor="rentalCost" className="form-label">
@@ -75,7 +95,12 @@ export const AddRoom = () => {
               id="maxGuests"
               placeholder="Enter  Max People"
               name="maxGuests"
-            />
+            />{" "}
+            <ErrorMessage
+              className="form-err"
+              name="maxGuests"
+              component="span"
+            ></ErrorMessage>
           </div>
           <div className="mb-3">
             <label htmlFor="rentalCost" className="form-label">
@@ -96,10 +121,9 @@ export const AddRoom = () => {
           </div>
           <div className="mb-3">
             <div className="form-check">
-              <input
+              <Field
                 className="form-check-input"
                 type="checkbox"
-                defaultValue
                 id="A"
                 name="otherFacilities"
                 value="A"
@@ -110,10 +134,9 @@ export const AddRoom = () => {
             </div>
 
             <div className="form-check">
-              <input
+              <Field
                 className="form-check-input"
                 type="checkbox"
-                defaultValue
                 id="B"
                 name="otherFacilities"
                 value="B"
@@ -123,6 +146,7 @@ export const AddRoom = () => {
               </label>
             </div>
           </div>
+
           <div className="mb-3">
             <label htmlFor="imageLink" className="form-label">
               Image Link

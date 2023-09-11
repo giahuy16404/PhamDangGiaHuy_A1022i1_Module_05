@@ -1,22 +1,48 @@
-import { Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useEffect, useState } from "react";
+import * as customerService from "../../../service/customer_service/customerService";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import * as Yup from "yup";
 
 export const AddCustomer = () => {
+  const [customerType, setCustomerType] = useState([]);
+  const navigate = useNavigate();
+
+  const getCustomerType = async () => {
+    const dataCustomerType = await customerService.getCustomerType();
+    setCustomerType(dataCustomerType);
+  };
+  useEffect(() => {
+    getCustomerType();
+  }, []);
   return (
     <>
       <h3 style={{ textAlign: "center" }}>Add Customer</h3>
       <Formik
         initialValues={{
-          fullName: "",
-          dateOfBirth: "",
+          fullName: undefined,
+          dateOfBirth: undefined,
           gender: "0",
-          identityNumber: "",
-          phoneNumber: "",
-          email: "",
-          customerType: "",
+          identityNumber: undefined,
+          phoneNumber: undefined,
+          email: undefined,
+          customerType: [],
         }}
         onSubmit={(values, { setSubmitting }) => {
-          console.log(values);
+          values.customerType = JSON.parse(values.customerType);
+          customerService.addCustomer(values);
+          setSubmitting(false);
+          toast.success("Thêm mới thành công!!");
+          navigate("/customer");
         }}
+        validationSchema={Yup.object({
+          fullName: Yup.string().required("Required"),
+          dateOfBirth: Yup.string().required("Required"),
+          identityNumber: Yup.string().required("Required"),
+          phoneNumber: Yup.number().required("Required"),
+          email: Yup.string().required("Required"),
+        })}
       >
         <Form>
           <div className="mb-3">
@@ -29,7 +55,12 @@ export const AddCustomer = () => {
               id="fullName"
               placeholder="Enter Full Name"
               name="fullName"
-            />
+            />{" "}
+            <ErrorMessage
+              className="form-err"
+              name="fullName"
+              component="span"
+            ></ErrorMessage>
           </div>
 
           <div className="mb-3">
@@ -42,7 +73,12 @@ export const AddCustomer = () => {
               id="dateOfBirth"
               placeholder="Enter Date Of Birth"
               name="dateOfBirth"
-            />
+            />{" "}
+            <ErrorMessage
+              className="form-err"
+              name="dateOfBirth"
+              component="span"
+            ></ErrorMessage>
           </div>
 
           <div className="mb-3">
@@ -84,6 +120,11 @@ export const AddCustomer = () => {
               placeholder="Enter CMND / CCCD"
               name="identityNumber"
             />
+            <ErrorMessage
+              className="form-err"
+              name="identityNumber"
+              component="span"
+            ></ErrorMessage>
           </div>
           <div className="mb-3">
             <label htmlFor="phoneNumber" className="form-label">
@@ -96,6 +137,11 @@ export const AddCustomer = () => {
               placeholder="Enter Phone Number"
               name="phoneNumber"
             />
+            <ErrorMessage
+              className="form-err"
+              name="phoneNumber"
+              component="span"
+            ></ErrorMessage>
           </div>
           <div className="mb-3">
             <label htmlFor="email" className="form-label">
@@ -108,6 +154,11 @@ export const AddCustomer = () => {
               placeholder="Enter Email"
               name="email"
             />
+            <ErrorMessage
+              className="form-err"
+              name="email"
+              component="span"
+            ></ErrorMessage>
           </div>
 
           <div className="mb-3">
@@ -116,15 +167,17 @@ export const AddCustomer = () => {
             </label>
             <Field
               as="select"
-              className="form-control"
+              className="form-select"
               id="customerType"
               name="customerType"
             >
-              <option value="">Select Customer Type</option>
-              <option value="diamond">Diamond</option>
-              <option value="platinum">Platinum</option>
-              <option value="gold">Gold</option>
-              <option value="silver">Silver</option>
+              <option value="" selected>
+                Select Customer Type
+              </option>
+
+              {customerType.map((value) => (
+                <option value={JSON.stringify(value)}>{value.type}</option>
+              ))}
             </Field>
           </div>
 
