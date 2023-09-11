@@ -1,9 +1,34 @@
-
 {
-    "user": [{
-        "id": 1,
-        "name" : "Huy",
-        "email": "huypham1642004@gmail.com",
-        "website" : "https://www.facebook.com/phamhuy1642004"
-    }]
+  "user": [
+    {
+      "id": 2,
+      "name": "Huy",
+      "email": "huypham1642004@gmail.com",
+      "website": "https://www.facebook.com/phamhuy1642004"
+    },
+    {
+      "id": 3,
+      "name": "Huy",
+      "email": "huypham1642004@gmail.com",
+      "website": "https://www.facebook.com/phamhuy1642004"
+    },
+    {
+      "id": 4,
+      "name": "Huy",
+      "email": "huypham1642004@gmail.com",
+      "website": "https://www.facebook.com/phamhuy1642004"
+    },
+    {
+      "id": 5,
+      "name": "Huy",
+      "email": "huypham1642004@gmail.com",
+      "website": "https://www.facebook.com/phamhuy1642004"
+    },
+    {
+      "id": 6,
+      "name": "Huy",
+      "email": "huypham1642004@gmail.com",
+      "website": "https://www.facebook.com/phamhuy1642004"
+    }
+  ]
 }

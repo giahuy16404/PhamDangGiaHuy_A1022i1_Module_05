@@ -1,7 +1,6 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
-
 export function MedicalDeclaration() {
   return (
     <>
@@ -53,7 +52,7 @@ export function MedicalDeclaration() {
         >
           <Form>
             <div className="mb-3">
-              <label for="name" className="form-label">
+              <label htmlFor="name" className="form-label">
                 Họ tên
               </label>
               <Field
@@ -70,7 +69,7 @@ export function MedicalDeclaration() {
             </div>
 
             <div className="mb-3">
-              <label for="cccd" className="form-label">
+              <label htmlFor="cccd" className="form-label">
                 Số hộ chiếu /CMND
               </label>
               <Field
@@ -87,7 +86,7 @@ export function MedicalDeclaration() {
             </div>
 
             <div className="mb-3">
-              <label for="yearOfBirth" className="form-label">
+              <label htmlFor="yearOfBirth" className="form-label">
                 Năm sinh
               </label>
               <Field
@@ -104,7 +103,7 @@ export function MedicalDeclaration() {
             </div>
 
             <div className="mb-3">
-              <label className="form-label">Giới tính</label>
+              <label className="form-label"> Giới tính </label>
               <div className="form-check">
                 <Field
                   className="form-check-input"
@@ -113,7 +112,7 @@ export function MedicalDeclaration() {
                   id="nam"
                   name="gender"
                 />
-                <label className="form-check-label" for="nam">
+                <label className="form-check-label" htmlFor="nam">
                   Nam
                 </label>
               </div>
@@ -125,14 +124,14 @@ export function MedicalDeclaration() {
                   id="nu"
                   name="gender"
                 />
-                <label className="form-check-label" for="nu">
+                <label className="form-check-label" htmlFor="nu">
                   Nữ
                 </label>
               </div>
             </div>
 
             <div className="mb-3">
-              <label for="nationality" className="form-label">
+              <label htmlFor="nationality" className="form-label">
                 Quốc tịch
               </label>
               <Field
@@ -149,7 +148,7 @@ export function MedicalDeclaration() {
             </div>
 
             <div className="mb-3">
-              <label for="companyWork" className="form-label">
+              <label htmlFor="companyWork" className="form-label">
                 Công ty làm việc
               </label>
               <Field
@@ -161,7 +160,7 @@ export function MedicalDeclaration() {
             </div>
 
             <div className="mb-3">
-              <label for="workDepartment" className="form-label">
+              <label htmlFor="workDepartment" className="form-label">
                 Bộ phận làm việc
               </label>
               <Field
@@ -181,7 +180,7 @@ export function MedicalDeclaration() {
                   name="healthInsurance"
                   value="yes"
                 />
-                <label className="form-check-label" for="healthInsurance">
+                <label className="form-check-label" htmlFor="healthInsurance">
                   Có thẻ bảo hiểm y tế
                 </label>
               </div>
@@ -192,7 +191,7 @@ export function MedicalDeclaration() {
             </p>
 
             <div className="mb-3">
-              <label for="city" className="form-label">
+              <label htmlFor="city" className="form-label">
                 Tỉnh Thành
               </label>
               <Field
@@ -209,7 +208,7 @@ export function MedicalDeclaration() {
             </div>
 
             <div className="mb-3">
-              <label for="county" className="form-label">
+              <label htmlFor="county" className="form-label">
                 Quận/Huyện
               </label>
               <Field
@@ -226,7 +225,7 @@ export function MedicalDeclaration() {
             </div>
 
             <div className="mb-3">
-              <label for="ward" className="form-label">
+              <label htmlFor="ward" className="form-label">
                 Phường xã
               </label>
               <Field
@@ -243,7 +242,7 @@ export function MedicalDeclaration() {
             </div>
 
             <div className="mb-3">
-              <label for="ward" className="form-label">
+              <label htmlFor="ward" className="form-label">
                 Số nhà, phố, tổ dân phố/thôn/đội
               </label>
               <Field
@@ -260,7 +259,7 @@ export function MedicalDeclaration() {
             </div>
 
             <div className="mb-3">
-              <label for="phone" className="form-label">
+              <label htmlFor="phone" className="form-label">
                 Điện thoại
               </label>
               <Field
@@ -277,7 +276,7 @@ export function MedicalDeclaration() {
             </div>
 
             <div className="mb-3">
-              <label for="email" className="form-label">
+              <label htmlFor="email" className="form-label">
                 Email
               </label>
               <Field
@@ -319,7 +318,7 @@ export function MedicalDeclaration() {
                   id="fever"
                   name="symptom"
                 />
-                <label className="form-check-label" for="fever">
+                <label className="form-check-label" htmlFor="fever">
                   Sốt
                 </label>
               </div>
@@ -332,7 +331,7 @@ export function MedicalDeclaration() {
                   id="cough"
                   name="symptom"
                 />
-                <label className="form-check-label" for="cough">
+                <label className="form-check-label" htmlFor="cough">
                   Ho
                 </label>
               </div>
@@ -345,7 +344,7 @@ export function MedicalDeclaration() {
                   id="shortnessOfBreath"
                   name="symptom"
                 />
-                <label className="form-check-label" for="shortnessOfBreath">
+                <label className="form-check-label" htmlFor="shortnessOfBreath">
                   Khó thở
                 </label>
               </div>
@@ -358,7 +357,7 @@ export function MedicalDeclaration() {
                   id="pneumonia"
                   name="symptom"
                 />
-                <label className="form-check-label" for="pneumonia">
+                <label className="form-check-label" htmlFor="pneumonia">
                   Viêm phổi
                 </label>
               </div>
@@ -371,7 +370,7 @@ export function MedicalDeclaration() {
                   id="tired"
                   name="symptom"
                 />
-                <label className="form-check-label" for="tired">
+                <label className="form-check-label" htmlFor="tired">
                   Mệt mỏi
                 </label>
               </div>
@@ -390,7 +389,7 @@ export function MedicalDeclaration() {
                   id="suspectedDisease"
                   name="symptom"
                 />
-                <label className="form-check-label" for="suspectedDisease">
+                <label className="form-check-label" htmlFor="suspectedDisease">
                   Người có bệnh hoặc nghi ngờ, mắc bệnh COVID-19
                 </label>
               </div>
@@ -403,7 +402,7 @@ export function MedicalDeclaration() {
                   id="beyondCovid"
                   name="symptom"
                 />
-                <label className="form-check-label" for="beyondCovid">
+                <label className="form-check-label" htmlFor="beyondCovid">
                   Người từ nước có bênh COVID-19
                 </label>
               </div>
@@ -416,7 +415,7 @@ export function MedicalDeclaration() {
                   id="symptomatic"
                   name="symptom"
                 />
-                <label className="form-check-label" for="symptomatic">
+                <label className="form-check-label" htmlFor="symptomatic">
                   Người có biểu hiện (Sốt,ho,khó thở,viêm phổi)
                 </label>
               </div>
