@@ -1,4 +1,4 @@
-import { Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import * as customerService from "../../../service/customer_service/customerService";
@@ -8,18 +8,18 @@ export const UpdateCustomer = () => {
   const idUpdate = useParams();
   const [customerType, setCustomerType] = useState([]);
   const navigate = useNavigate();
-  
+
   const getCustomerType = async () => {
     const dataCustomerType = await customerService.getCustomerType();
     setCustomerType(dataCustomerType);
   };
 
   useEffect(() => {
-    getById(idUpdate.id);
+    getCustomerById(idUpdate.id);
     getCustomerType();
   }, []);
 
-  const getById = async (id) => {
+  const getCustomerById = async (id) => {
     const data = await customerService.findById(id);
     setCustomer(data);
   };
@@ -31,24 +31,28 @@ export const UpdateCustomer = () => {
         <Formik
           initialValues={{
             id: customer.id,
-            fullName: customer.fullName,
-            dateOfBirth: customer.dateOfBirth,
-            gender: customer.gender,
-            identityNumber: customer.identityNumber,
-            phoneNumber: customer.phoneNumber,
+            name: customer.name,
+            birthDay: customer.birthDay,
+            gender: customer.gender === true ? "0" : "1",
+            idCard: customer.idCard,
+            phone: customer.phone,
             email: customer.email,
+            address: customer.address,
             customerType: JSON.stringify(customer.customerType),
           }}
           onSubmit={(values, { setSubmitting }) => {
+            const obj = {
+              ...values,
+              customerType: JSON.parse(values.customerType),
+              gender: parseInt(values.gender),
+            };
+            customerService.update(obj);
             setSubmitting(false);
-            values.customerType = JSON.parse(values.customerType);
-            customerService.update(idUpdate.id, values);
             toast.success("Cập nhật thành công !!");
             navigate("/customer");
           }}
         >
           <Form>
-            {console.log(JSON.stringify(customer.customerType))}
             <div className="mb-3">
               <label htmlFor="image" className="form-label">
                 Full Name
@@ -58,8 +62,13 @@ export const UpdateCustomer = () => {
                 className="form-control"
                 id="fullName"
                 placeholder="Enter Full Name"
-                name="fullName"
-              />
+                name="name"
+              />{" "}
+              <ErrorMessage
+                className="form-err"
+                name="name"
+                component="span"
+              ></ErrorMessage>
             </div>
 
             <div className="mb-3">
@@ -71,8 +80,13 @@ export const UpdateCustomer = () => {
                 className="form-control"
                 id="dateOfBirth"
                 placeholder="Enter Date Of Birth"
-                name="dateOfBirth"
-              />
+                name="birthDay"
+              />{" "}
+              <ErrorMessage
+                className="form-err"
+                name="birthDay"
+                component="span"
+              ></ErrorMessage>
             </div>
 
             <div className="mb-3">
@@ -112,20 +126,30 @@ export const UpdateCustomer = () => {
                 className="form-control"
                 id="identityNumber"
                 placeholder="Enter CMND / CCCD"
-                name="identityNumber"
+                name="idCard"
               />
+              <ErrorMessage
+                className="form-err"
+                name="idCard"
+                component="span"
+              ></ErrorMessage>
             </div>
             <div className="mb-3">
               <label htmlFor="phoneNumber" className="form-label">
                 Phone Number
               </label>
               <Field
-                type="text"
+                type="number"
                 className="form-control"
                 id="phoneNumber"
                 placeholder="Enter Phone Number"
-                name="phoneNumber"
+                name="phone"
               />
+              <ErrorMessage
+                className="form-err"
+                name="phone"
+                component="span"
+              ></ErrorMessage>
             </div>
             <div className="mb-3">
               <label htmlFor="email" className="form-label">
@@ -138,6 +162,28 @@ export const UpdateCustomer = () => {
                 placeholder="Enter Email"
                 name="email"
               />
+              <ErrorMessage
+                className="form-err"
+                name="email"
+                component="span"
+              ></ErrorMessage>
+            </div>
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label">
+                Address
+              </label>
+              <Field
+                type="text"
+                className="form-control"
+                id="email"
+                placeholder="Enter Email"
+                name="address"
+              />
+              <ErrorMessage
+                className="form-err"
+                name="address"
+                component="span"
+              ></ErrorMessage>
             </div>
 
             <div className="mb-3">
@@ -150,10 +196,12 @@ export const UpdateCustomer = () => {
                 id="customerType"
                 name="customerType"
               >
+                <option value="" selected>
+                  Select Customer Type
+                </option>
+
                 {customerType.map((value) => (
-                  <option value={JSON.stringify(value)} key={value.id}>
-                    {value.type}
-                  </option>
+                  <option value={JSON.stringify(value)}>{value.name}</option>
                 ))}
               </Field>
             </div>

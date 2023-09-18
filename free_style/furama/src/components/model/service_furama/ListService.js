@@ -3,12 +3,14 @@ import { RemoveModal } from "./RemoveServiceModal";
 import { useEffect, useState } from "react";
 import * as serviceFurama from "../../../service/service_furama_service/serviceFuramaService";
 import { ModalSelectAddService } from "./ModalSelectAddService";
+import { toast } from "react-toastify";
 
 export const ListService = () => {
   const [serviceList, setServiceList] = useState([]);
   const [openModalRemove, setOpenModalRemove] = useState(false);
   const [openModalAdd, setOpenModalAdd] = useState(false);
-  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
+  const [page, setPage] = useState(0);
   const [idRemove, setIdRemove] = useState();
   const handleOpenModalAdd = () => {
     setOpenModalAdd(true);
@@ -30,7 +32,8 @@ export const ListService = () => {
   }, [page]);
 
   const getListService = async (page) => {
-    const dataServiceList = await serviceFurama.getList(page);
+    const [dataServiceList, totalPage] = await serviceFurama.getPage(page);
+    setTotalPage(totalPage);
     setServiceList(dataServiceList);
   };
   const handleNextPage = () => {
@@ -42,8 +45,8 @@ export const ListService = () => {
 
   //Remove facility
   const handleRemove = async () => {
-    console.log(idRemove);
     await serviceFurama.remove(idRemove);
+    toast.success("Xóa thành công!!");
     getListService(page);
   };
   return (
@@ -55,15 +58,16 @@ export const ListService = () => {
             <div class="col-sm" style={{ marginTop: "20px" }} key={value.id}>
               <div className="card" style={{ width: "18rem" }}>
                 <img
-                  src={value.imageLink}
+                  src={value.imgLink}
                   className="card-img-top"
-                  alt={value.imageLink}
+                  alt={value.imgLink}
                 />
                 <div className="card-body">
-                  <h5 className="card-title">{value.serviceName}</h5>
-                  <p className="card-text">{value.usageArea}</p>
+                  <h5 className="card-title">{value.name}</h5>
+                  <p className="card-text">{value.area}</p>
                   <button
-                    className="card-text"
+                    type="button"
+                    className="btn btn-danger btn-sm"
                     onClick={() => {
                       handleOpenModalRemove();
                       setIdRemove(value.id);
@@ -73,9 +77,11 @@ export const ListService = () => {
                     Remove
                   </button>
                   <NavLink
-                    to={`/service/update/${value.serviceType}/${value.id}`}
+                    to={`/service/update/${value.serviceType.name}/${value.id}`}
                   >
-                    <button className="card-text">Update</button>
+                    <button type="button" className="btn btn-success btn-sm">
+                      Update
+                    </button>
                   </NavLink>
                 </div>
               </div>
@@ -106,13 +112,15 @@ export const ListService = () => {
         <nav aria-label="Page navigation example">
           <ul class="pagination">
             <li class="page-item">
-              <button class="page-link" onClick={handlePreviousPage}>
-                Previous
-              </button>
+              {page > 0 && (
+                <button class="page-link" onClick={handlePreviousPage}>
+                  Previous
+                </button>
+              )}
             </li>
             <li class="page-item">
               <span class="page-link" href="#">
-                {page}
+                {page + 1}
               </span>
             </li>
             <li class="page-item">
@@ -122,13 +130,16 @@ export const ListService = () => {
             </li>
             <li class="page-item">
               <span class="page-link" href="#">
-                1
+                {totalPage}
               </span>
             </li>
+
             <li class="page-item">
-              <button class="page-link" onClick={handleNextPage}>
-                Next
-              </button>
+              {page + 1 !== totalPage && (
+                <button class="page-link" onClick={handleNextPage}>
+                  Next
+                </button>
+              )}
             </li>
           </ul>
         </nav>

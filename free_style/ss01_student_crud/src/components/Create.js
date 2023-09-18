@@ -1,49 +1,33 @@
-import { useParams } from "react-router-dom";
-import React, { useEffect, useState } from "react";
 import { Formik, Form, Field } from "formik";
+import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-export const Update = () => {
-  const [student, setStudent] = useState([]);
+export const Create = () => {
   const navigate = useNavigate();
-  const param = useParams();
-  useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/student/getById/${param.id}`)
-      .then((res) => {
-        setStudent(res.data);
-      })
-      .catch((error) => console.log(error));
-  }, [param.id]);
-
   return (
     <>
-      <h3 style={{ textAlign: "center", marginTop: "20px" }}>Update</h3>
+      <h1 style={{ textAlign: "center" }}>Create student</h1>
       <Formik
-        enableReinitialize={true}
         initialValues={{
-          id: student.id,
-          name: student.name,
-          email: student.email,
-          birthday: student.birthday,
-          gender: student.gender ? "0" : "1",
-          address: student.address,
+          name: "",
+          email: "",
+          birthday: "",
+          gender: 0,
+          address: "",
         }}
         onSubmit={(values, { setSubmitting }) => {
           setSubmitting(false);
+          console.log(values);
           values.gender = parseInt(values.gender);
           axios
-            .post(`http://localhost:8080/api/student/update`, values)
-            .then((res) => console.log(res))
-            .catch((error) => console.log(error));
-
-          toast.success("Update thành công!!");
+            .post(`http://localhost:8080/api/student/add`, values)
+            .then((res) => console.log(res));
+          toast.success("Thêm mới thành công!!");
           navigate("/student");
         }}
       >
         <Form>
-          {console.log(student)}
           <div class="mb-3">
             <label for="name" className="form-label">
               Name
@@ -120,7 +104,7 @@ export const Update = () => {
           </div>
           <div className="btn-create d-flex justify-content-center">
             <button type="submit" className="btn btn-primary">
-              Update
+              Submit
             </button>
           </div>
         </Form>

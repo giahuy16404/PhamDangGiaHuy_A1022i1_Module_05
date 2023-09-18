@@ -1,4 +1,4 @@
-package com.example.thi.util;
+package com.example.student_api.util;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

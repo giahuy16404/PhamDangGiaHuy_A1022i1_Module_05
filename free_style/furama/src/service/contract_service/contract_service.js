@@ -1,0 +1,23 @@
+import axios from "axios";
+
+export const add = async (value) => {
+  try {
+    const data = await axios.post(
+      `http://localhost:8080/api/contract/add`,
+      value
+    );
+    return data.data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+export const getPage = async (page) => {
+    try {
+      const data = await axios.get(
+        `http://localhost:8080/api/contract/getPage?page=${page}&size=8`
+      );
+      return [data.data.content, data.data.totalPages];
+    } catch (e) {
+      console.log(e);
+    }
+  };

@@ -35,9 +35,9 @@ export const Header = () => {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link active" href="#">
+                <p className="nav-link active" href="#">
                   Employee
-                </a>
+                </p>
               </li>
               <li className="nav-item">
                 <NavLink

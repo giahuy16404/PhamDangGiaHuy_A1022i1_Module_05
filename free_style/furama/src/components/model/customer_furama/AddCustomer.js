@@ -21,27 +21,44 @@ export const AddCustomer = () => {
       <h3 style={{ textAlign: "center" }}>Add Customer</h3>
       <Formik
         initialValues={{
-          fullName: undefined,
-          dateOfBirth: undefined,
+          name: undefined,
+          birthDay: undefined,
           gender: "0",
-          identityNumber: undefined,
-          phoneNumber: undefined,
+          idCard: undefined,
+          phone: undefined,
           email: undefined,
+          address: undefined,
           customerType: [],
         }}
-        onSubmit={(values, { setSubmitting }) => {
-          values.customerType = JSON.parse(values.customerType);
-          customerService.addCustomer(values);
+        onSubmit={async (values, { setSubmitting }) => {
+          const obj = {
+            ...values,
+            customerType: JSON.parse(values.customerType),
+            gender: parseInt(values.gender),
+          };
+          await customerService.add(obj);
           setSubmitting(false);
           toast.success("Thêm mới thành công!!");
           navigate("/customer");
         }}
         validationSchema={Yup.object({
-          fullName: Yup.string().required("Required"),
-          dateOfBirth: Yup.string().required("Required"),
-          identityNumber: Yup.string().required("Required"),
-          phoneNumber: Yup.number().required("Required"),
-          email: Yup.string().required("Required"),
+          name: Yup.string()
+            .required("Required")
+            .matches(/^[A-Z][a-z]*( [A-Z][a-z]*)*$/),
+          birthDay: Yup.string().required("Required"),
+          idCard: Yup.string()
+            .required("Required")
+            .matches(
+              /^[0-9]{9}$|^[0-9]{12}$/,
+              "ID Card must be 9 or 12 digits"
+            ),
+          phone: Yup.string()
+            .required("Required")
+            .matches(/^090\d{7}$|^091\d{7}$/, "Invalid phone number"),
+          email: Yup.string()
+            .required("Required")
+            .matches(/^[a-z0-9]+@gmail\.com$/, "Invalid email"),
+          address: Yup.string().required("Required"),
         })}
       >
         <Form>
@@ -54,11 +71,11 @@ export const AddCustomer = () => {
               className="form-control"
               id="fullName"
               placeholder="Enter Full Name"
-              name="fullName"
+              name="name"
             />{" "}
             <ErrorMessage
               className="form-err"
-              name="fullName"
+              name="name"
               component="span"
             ></ErrorMessage>
           </div>
@@ -72,11 +89,11 @@ export const AddCustomer = () => {
               className="form-control"
               id="dateOfBirth"
               placeholder="Enter Date Of Birth"
-              name="dateOfBirth"
+              name="birthDay"
             />{" "}
             <ErrorMessage
               className="form-err"
-              name="dateOfBirth"
+              name="birthDay"
               component="span"
             ></ErrorMessage>
           </div>
@@ -110,19 +127,19 @@ export const AddCustomer = () => {
           </div>
 
           <div className="mb-3">
-            <label htmlFor="identityNumber" className="form-label">
+            <label htmlFor="idCard" className="form-label">
               CMND / CCCD
             </label>
             <Field
-              type="number"
+              type="text"
               className="form-control"
-              id="identityNumber"
+              id="idCard"
               placeholder="Enter CMND / CCCD"
-              name="identityNumber"
+              name="idCard"
             />
             <ErrorMessage
               className="form-err"
-              name="identityNumber"
+              name="idCard"
               component="span"
             ></ErrorMessage>
           </div>
@@ -131,15 +148,15 @@ export const AddCustomer = () => {
               Phone Number
             </label>
             <Field
-              type="number"
+              type="text"
               className="form-control"
               id="phoneNumber"
               placeholder="Enter Phone Number"
-              name="phoneNumber"
+              name="phone"
             />
             <ErrorMessage
               className="form-err"
-              name="phoneNumber"
+              name="phone"
               component="span"
             ></ErrorMessage>
           </div>
@@ -148,7 +165,7 @@ export const AddCustomer = () => {
               Email
             </label>
             <Field
-              type="number"
+              type="text"
               className="form-control"
               id="email"
               placeholder="Enter Email"
@@ -157,6 +174,23 @@ export const AddCustomer = () => {
             <ErrorMessage
               className="form-err"
               name="email"
+              component="span"
+            ></ErrorMessage>
+          </div>
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label">
+              Address
+            </label>
+            <Field
+              type="text"
+              className="form-control"
+              id="email"
+              placeholder="Enter Email"
+              name="address"
+            />
+            <ErrorMessage
+              className="form-err"
+              name="address"
               component="span"
             ></ErrorMessage>
           </div>
@@ -176,7 +210,7 @@ export const AddCustomer = () => {
               </option>
 
               {customerType.map((value) => (
-                <option value={JSON.stringify(value)}>{value.type}</option>
+                <option value={JSON.stringify(value)}>{value.name}</option>
               ))}
             </Field>
           </div>

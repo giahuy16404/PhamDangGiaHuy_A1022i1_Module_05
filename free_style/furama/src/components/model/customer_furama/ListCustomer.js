@@ -1,12 +1,31 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import * as customerService from "../../../service/customer_service/customerService";
+import { RemoveModal } from "./ModalRemove";
+import { toast } from "react-toastify";
 export const ListCustomer = () => {
   const [customerList, setCustomerList] = useState([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
+  const [totalPage, setTotalPage] = useState();
+  const [openModalRemove, setOpenModalRemove] = useState(false);
+  const [idRemove, setIdRemove] = useState();
+
+  const handleOpenModalRemove = () => {
+    setOpenModalRemove(true);
+  };
+  const handleCloseModalRemove = () => {
+    setOpenModalRemove(false);
+  };
+
+  const handleRemove = async () => {
+    await customerService.remove(idRemove);
+    getList(page);
+    toast.success("Xóa thành công !!");
+  };
 
   const getList = async (page) => {
-    const data = await customerService.getList(page);
+    const [data, totalPage] = await customerService.getPage(page);
+    setTotalPage(totalPage);
     setCustomerList(data);
   };
   const handleNextPage = () => {
@@ -46,12 +65,12 @@ export const ListCustomer = () => {
           {customerList.map((value, index) => (
             <tr key={value.id}>
               <th scope="row">{index + 1}</th>
-              <td>{value.fullName}</td>
-              <td>{value.dateOfBirth}</td>
-              <td>{value.gender === "0" ? "Nam" : "Nu"}</td>
-              <td>{value.phoneNumber}</td>
+              <td>{value.name}</td>
+              <td>{value.birthDay}</td>
+              <td>{value.gender === true ? "Nam" : "Nu"}</td>
+              <td>{value.phone}</td>
               <td>{value.email}</td>
-              <td>{value.customerType.type}</td>
+              <td>{value.customerType.name}</td>
               <td>
                 <div className="d-flex justify-content-between">
                   <NavLink to={`/customer/update/${value.id}`}>
@@ -59,7 +78,16 @@ export const ListCustomer = () => {
                       Update
                     </button>
                   </NavLink>
-                  <button type="button" bn className="btn btn-danger btn-sm">
+
+                  <button
+                    type="button"
+                    className="btn btn-danger btn-sm"
+                    onClick={() => {
+                      handleOpenModalRemove();
+                      setIdRemove(value.id);
+                    }}
+                    style={{ marginRight: "10px" }}
+                  >
                     Remove
                   </button>
                 </div>
@@ -94,21 +122,38 @@ export const ListCustomer = () => {
         <nav aria-label="Page navigation example">
           <ul class="pagination">
             <li class="page-item">
-              <button class="page-link" onClick={handlePreviousPage}>
-                Previous
-              </button>
+              {page > 0 && (
+                <button class="page-link" onClick={handlePreviousPage}>
+                  Previous
+                </button>
+              )}
             </li>
             <li class="page-item">
-              <span class="page-link">{page}</span>
+              <span class="page-link">{page + 1}</span>
             </li>
             <li class="page-item">
-              <button class="page-link" onClick={handleNextPage}>
-                Next
-              </button>
+              <span class="page-link">/</span>
+            </li>
+            <li class="page-item">
+              <span class="page-link">{totalPage}</span>
+            </li>
+            <li class="page-item">
+              {page + 1 !== totalPage && (
+                <button class="page-link" onClick={handleNextPage}>
+                  Next
+                </button>
+              )}
             </li>
           </ul>
         </nav>
       </div>
+      {openModalRemove && (
+        <RemoveModal
+          openModal={openModalRemove}
+          closeModal={handleCloseModalRemove}
+          handleRemove={handleRemove}
+        />
+      )}
     </>
   );
 };
