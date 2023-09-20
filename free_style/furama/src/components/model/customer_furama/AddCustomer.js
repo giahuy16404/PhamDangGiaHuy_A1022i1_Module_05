@@ -41,7 +41,7 @@ export const AddCustomer = () => {
           toast.success("Thêm mới thành công!!");
           navigate("/customer");
         }}
-        validationSchema={Yup.object({
+        validationSchema={Yup.object({ 
           name: Yup.string()
             .required("Required")
             .matches(/^[A-Z][a-z]*( [A-Z][a-z]*)*$/),

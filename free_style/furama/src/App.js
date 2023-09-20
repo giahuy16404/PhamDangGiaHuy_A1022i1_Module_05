@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
-import "./App.css";
+// import "./App.css";
 import { ListService } from "./components/model/service_furama/ListService";
 import { Footer } from "./components/shared/Footer";
 import { Header } from "./components/shared/Header";
@@ -17,6 +17,7 @@ import { AddHouse } from "./components/model/service_furama/AddHouse";
 import { AddRoom } from "./components/model/service_furama/AddRoom";
 import { UpdateVilla } from "./components/model/service_furama/UpdateVilla";
 import { UpdateRoom } from "./components/model/service_furama/UpdateRoom";
+import { Login } from "./components/login/Login";
 
 function App() {
   return (
@@ -47,6 +48,11 @@ function App() {
               <Route index element={<ListContract />}></Route>
               <Route path="add" element={<AddContract />} />
             </Route>
+
+            {/* <Route path="/login" element={<Outlet />}>
+              <Route index element={<Login />}></Route>
+            </Route> */}
+            <Route path="/login" element={<Login />} />
           </Routes>
           <Footer />
         </BrowserRouter>
