@@ -1,0 +1,40 @@
+{
+  "customerType": [
+    {
+      "id": 1,
+      "name": "Kim cuong"
+    },
+    {
+      "id": 2,
+      "name": "vang`"
+    }
+  ],
+  "customer": [
+    {
+      "id": 4,
+      "name": "Pham Hy Update update",
+      "birthday": "2023-09-01",
+      "phone": 123123312,
+      "gender": "1",
+      "email": "pham2huy1642004@gmail.com",
+      "address": "12312asd122",
+      "customerType": {
+        "id": 2,
+        "name": "vang`"
+      }
+    },
+    {
+      "name": "Pham Dang Gia Huy",
+      "birthday": "2023-09-12",
+      "phone": 123,
+      "gender": "0",
+      "email": "phamhuy1642004@gmail.com",
+      "address": "12312asd12",
+      "customerType": {
+        "id": 2,
+        "name": "vang`"
+      },
+      "id": 5
+    }
+  ]
+}
