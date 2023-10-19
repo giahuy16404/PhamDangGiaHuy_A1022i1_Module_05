@@ -1,40 +1,91 @@
 {
-  "customerType": [
+  "category": [
     {
       "id": 1,
-      "name": "Kim cuong"
+      "name": "A"
     },
     {
       "id": 2,
-      "name": "vang`"
+      "name": "B"
     }
   ],
-  "customer": [
+  "book": [
     {
-      "id": 4,
-      "name": "Pham Hy Update update",
-      "birthday": "2023-09-01",
-      "phone": 123123312,
-      "gender": "1",
-      "email": "pham2huy1642004@gmail.com",
-      "address": "12312asd122",
-      "customerType": {
-        "id": 2,
-        "name": "vang`"
-      }
+      "id": 6,
+      "code": "BO - 1",
+      "name": "ABC",
+      "category": {
+        "id": 1,
+        "name": "A"
+      },
+      "day": "2020-02-02",
+      "quanlity": 12
     },
     {
-      "name": "Pham Dang Gia Huy",
-      "birthday": "2023-09-12",
-      "phone": 123,
-      "gender": "0",
-      "email": "phamhuy1642004@gmail.com",
-      "address": "12312asd12",
-      "customerType": {
-        "id": 2,
-        "name": "vang`"
+      "code": "BO - 2",
+      "name": "H",
+      "quanlity": 1,
+      "day": "2023-09-12",
+      "category": {
+        "id": 1,
+        "name": "A"
       },
-      "id": 5
+      "id": 7
+    },
+    {
+      "code": "BO - 3",
+      "name": "Phạm Đặng Gia Huy",
+      "quanlity": 31,
+      "day": "2023-09-27",
+      "category": {
+        "id": 2,
+        "name": "B"
+      },
+      "id": 8
+    },
+    {
+      "code": "BO - 4",
+      "name": "123",
+      "quanlity": 12,
+      "day": "2023-09-27",
+      "category": {
+        "id": 1,
+        "name": "A"
+      },
+      "id": 9
+    },
+    {
+      "code": "BO - 6",
+      "name": "1dqư",
+      "quanlity": 2,
+      "day": "2023-09-27",
+      "category": {
+        "id": 1,
+        "name": "A"
+      },
+      "id": 10
+    },
+    {
+      "code": "BO - 5",
+      "name": "HEHEHE",
+      "quanlity": 5,
+      "day": "2023-09-27",
+      "category": {
+        "id": 2,
+        "name": "B"
+      },
+      "id": 11
+    },
+    {
+      "code": "BO - 4",
+      "name": "Phạm Đặng Gia HuyPhạm Đặng Gia HuyPhạm Đặng Gia HuyPhạm Đặng Gia HuyPhạm Đặng Gia Huy",
+      "quanlity": "",
+      "day": "2023-09-27",
+      "category": {
+        "id": 2,
+        "name": "B"
+      },
+      "id": 12
     }
   ]
 }

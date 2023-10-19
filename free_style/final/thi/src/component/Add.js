@@ -6,41 +6,42 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 export const Add = () => {
   const navigate = useNavigate();
-  const [customerType, setCustomerType] = useState([]);
-  const getCustomerType = async () => {
-    const data = await service.getCustomerType();
-    setCustomerType(data);
+
+  //Goi các bảng có sẳn dữ liệu
+  const [category, setCategory] = useState([]);
+  const getCategory = async () => {
+    const data = await service.getCategory();
+    setCategory(data);
   };
   useEffect(() => {
-    getCustomerType();
+    getCategory();
   }, []);
 
-  const [age, setAge] = useState("");
+  // const [age, setAge] = useState("");
 
-  const handleDateChange = (event) => {
-    const selectedDate = new Date(event.target.value);
-    const currentDate = new Date();
-    const ageDifference =
-      currentDate.getFullYear() - selectedDate.getFullYear();
-    setAge(ageDifference);
-  };
+  // const handleDateChange = (event) => {
+  //   const selectedDate = new Date(event.target.value);
+  //   const currentDate = new Date();
+  //   const ageDifference =
+  //     currentDate.getFullYear() - selectedDate.getFullYear();
+  //   setAge(ageDifference);
+  // };
 
   return (
     <>
       <Formik
         initialValues={{
+          code: "",
           name: "",
-          birthday: "",
-          phone: 0,
-          gender: "1",
-          email: "",
-          address: "",
-          customerType: {},
+          quanlity: 0,
+          day: 0,
+          category: {},
         }}
         onSubmit={async (values) => {
+          console.log(values);
           const obj = {
             ...values,
-            customerType: JSON.parse(values.customerType),
+            category: JSON.parse(values.category),
           };
           await service.add(obj);
           toast.success("Thêm mới thành công !!");
@@ -48,21 +49,33 @@ export const Add = () => {
           console.log(values);
         }}
         validationSchema={Yup.object({
-          name: Yup.string()
-            .required("Không để trống!!")
-            .matches(/^[A-Z][a-z]*( [A-Z][a-z]*)*$/),
-          birthday: Yup.string().required("Không để trống!!"),
-          phone: Yup.number().required("Không để trống!!"),
-          email: Yup.string()
-            .required("Không để trống!!")
-            .matches(/^[a-z0-9]+@gmail\.com$/, "Invalid email"),
-          address: Yup.string().required("Không để trống!!"),
+          name: Yup.string().required("Không để trống!!").max(100),
+          code: Yup.string().required("Không để trống!!").matches(/BO - /),
+          quanlity: Yup.number().min(0),
         })}
       >
         <Form>
           <div className="mb-3">
             <label htmlFor="image" className="form-label">
-              Full Name
+              Code
+            </label>
+            <Field
+              type="text"
+              className="form-control"
+              id="fullName"
+              placeholder="Enter Full Name"
+              name="code"
+            />
+            <ErrorMessage
+              className="form-err"
+              name="code"
+              component="span"
+            ></ErrorMessage>
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="image" className="form-label">
+              Name
             </label>
             <Field
               type="text"
@@ -78,119 +91,59 @@ export const Add = () => {
               component="span"
             ></ErrorMessage>
           </div>
+          <div className="mb-3">
+            <label htmlFor="image" className="form-label">
+              quanlity
+            </label>
+            <Field
+              type="number"
+              className="form-control"
+              id="quanlity"
+              placeholder="Enter Full Name"
+              name="quanlity"
+              de
+            />
+            <ErrorMessage
+              className="form-err"
+              name="quanlity"
+              component="span"
+            ></ErrorMessage>
+          </div>
 
           <div className="mb-3">
             <label htmlFor="image" className="form-label">
-              birthday
+              Day
             </label>
             <Field
               type="date"
               className="form-control"
               id="fullName"
               placeholder="Enter Full Name"
-              name="birthday"
+              name="day"
               de
             />
             <ErrorMessage
               className="form-err"
-              name="birthday"
+              name="day"
               component="span"
             ></ErrorMessage>
           </div>
-          <div className="mb-3">
-            <label htmlFor="image" className="form-label">
-              phone
-            </label>
-            <Field
-              type="number"
-              className="form-control"
-              id="fullName"
-              placeholder="Enter Full Name"
-              name="phone"
-              de
-            />
-            <ErrorMessage
-              className="form-err"
-              name="phone"
-              component="span"
-            ></ErrorMessage>
-          </div>
-          <div className="mb-3">
-            <label className="form-label"> Giới tính </label>
-            <div className="form-check">
-              <Field
-                className="form-check-input"
-                type="radio"
-                value="0"
-                id="nam"
-                name="gender"
-              />
-              <label className="form-check-label" htmlFor="nam">
-                Nam
-              </label>
-            </div>
-            <div className="form-check">
-              <Field
-                className="form-check-input"
-                type="radio"
-                value="1"
-                id="nu"
-                name="gender"
-              />
-              <label className="form-check-label" htmlFor="nu">
-                Nữ
-              </label>
-            </div>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              Email
-            </label>
-            <Field
-              type="text"
-              className="form-control"
-              id="email"
-              placeholder="Enter Email"
-              name="email"
-            />
-            <ErrorMessage
-              className="form-err"
-              name="email"
-              component="span"
-            ></ErrorMessage>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              Address
-            </label>
-            <Field
-              type="text"
-              className="form-control"
-              id="email"
-              placeholder="Enter Email"
-              name="address"
-            />
-            <ErrorMessage
-              className="form-err"
-              name="address"
-              component="span"
-            ></ErrorMessage>
-          </div>
+
           <div className="mb-3">
             <label htmlFor="customerType" className="form-label">
-              Customer Type
+              Category
             </label>
             <Field
               as="select"
               className="form-select"
               id="customerType"
-              name="customerType"
+              name="category"
             >
               <option value="" selected>
-                Select Customer Type
+                Select Category
               </option>
 
-              {customerType.map((value) => (
+              {category.map((value) => (
                 <option value={JSON.stringify(value)} key={value.id}>
                   {value.name}
                 </option>

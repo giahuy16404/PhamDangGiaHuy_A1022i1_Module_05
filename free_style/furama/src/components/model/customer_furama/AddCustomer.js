@@ -8,14 +8,23 @@ import * as Yup from "yup";
 export const AddCustomer = () => {
   const [customerType, setCustomerType] = useState([]);
   const navigate = useNavigate();
+  const [token, setToken] = useState();
 
-  const getCustomerType = async () => {
-    const dataCustomerType = await customerService.getCustomerType();
+  const getTokenFromLocalStorage = async () => {
+     // Lấy token từ localStorage
+     const token = await localStorage.getItem("token");
+     setToken(token);
+   };
+  const getCustomerType = async (token) => {
+    const dataCustomerType = await customerService.getCustomerType(token);
     setCustomerType(dataCustomerType);
   };
   useEffect(() => {
-    getCustomerType();
-  }, []);
+    getTokenFromLocalStorage()
+    if (token) {
+    getCustomerType(token);
+    }
+  }, [token]);
   return (
     <>
       <h3 style={{ textAlign: "center" }}>Add Customer</h3>
@@ -36,7 +45,7 @@ export const AddCustomer = () => {
             customerType: JSON.parse(values.customerType),
             gender: parseInt(values.gender),
           };
-          await customerService.add(obj);
+          await customerService.add(obj,token);
           setSubmitting(false);
           toast.success("Thêm mới thành công!!");
           navigate("/customer");
@@ -61,6 +70,7 @@ export const AddCustomer = () => {
           address: Yup.string().required("Required"),
         })}
       >
+
         <Form>
           <div className="mb-3">
             <label htmlFor="image" className="form-label">
@@ -72,6 +82,7 @@ export const AddCustomer = () => {
               id="fullName"
               placeholder="Enter Full Name"
               name="name"
+              de
             />{" "}
             <ErrorMessage
               className="form-err"

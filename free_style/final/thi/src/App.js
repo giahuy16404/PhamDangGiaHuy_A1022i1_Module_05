@@ -5,7 +5,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { List } from "./component/List";
-import { Update } from "./component/Update";
 import { Add } from "./component/Add";
 function App() {
   return (
@@ -15,9 +14,8 @@ function App() {
           <Routes>
             <Route path="**" element={""}></Route>
 
-            <Route path="/add" element={<Add />}></Route>
-            <Route path="/update/:id" element={<Update />}></Route>
             <Route path="/" element={<List />}></Route>
+            <Route path="/add" element={<Add />}></Route>
           </Routes>
         </BrowserRouter>
         <ToastContainer />

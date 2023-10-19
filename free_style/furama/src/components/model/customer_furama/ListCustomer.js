@@ -9,6 +9,7 @@ export const ListCustomer = () => {
   const [totalPage, setTotalPage] = useState();
   const [openModalRemove, setOpenModalRemove] = useState(false);
   const [idRemove, setIdRemove] = useState();
+  const [token, setToken] = useState();
 
   const handleOpenModalRemove = () => {
     setOpenModalRemove(true);
@@ -16,15 +17,22 @@ export const ListCustomer = () => {
   const handleCloseModalRemove = () => {
     setOpenModalRemove(false);
   };
+  const getTokenFromLocalStorage = async () => {
+    // Lấy token từ localStorage
+    const token = await localStorage.getItem("token");
+    setToken(token);
+  };
+
+  // Sử dụng hàm để lấy token từ localStorage
 
   const handleRemove = async () => {
     await customerService.remove(idRemove);
-    getList(page);
+    getPage(page, token);
     toast.success("Xóa thành công !!");
   };
 
-  const getList = async (page) => {
-    const [data, totalPage] = await customerService.getPage(page);
+  const getPage = async (page, token) => {
+    const [data, totalPage] = await customerService.getPage(page, token);
     setTotalPage(totalPage);
     setCustomerList(data);
   };
@@ -37,8 +45,11 @@ export const ListCustomer = () => {
 
   //call api
   useEffect(() => {
-    getList(page);
-  }, [page]);
+    getTokenFromLocalStorage();
+    if (token) {
+      getPage(page, token);
+    }
+  }, [page, token]);
 
   return (
     <>

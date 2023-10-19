@@ -1,0 +1,142 @@
+{
+  "customer": [
+    {
+      "id": 1,
+      "fullName": "Nguyen Van HII",
+      "dateOfBirth": "1990-01-15",
+      "gender": "1",
+      "identityNumber": "123456789",
+      "phoneNumber": "0987654321",
+      "email": "nguyenvana@example.com",
+      "customerType": {
+        "id": 3,
+        "type": "Gold"
+      }
+    },
+    {
+      "id": 2,
+      "fullName": "Tran Thi B",
+      "dateOfBirth": "1985-03-20",
+      "gender": "1",
+      "identityNumber": "987654321",
+      "phoneNumber": "0123456789",
+      "email": "tranthib@example.com",
+      "customerType": {
+        "id": 2,
+        "type": "Platinum"
+      }
+    },
+    {
+      "id": 3,
+      "fullName": "Le Van C",
+      "dateOfBirth": "1992-07-10",
+      "gender": "0",
+      "identityNumber": "567890123",
+      "phoneNumber": "0789654321",
+      "email": "levanc@example.com",
+      "customerType": {
+        "id": 3,
+        "type": "Gold"
+      }
+    },
+    {
+      "id": 4,
+      "fullName": "Pham Thi D",
+      "dateOfBirth": "1998-05-25",
+      "gender": "1",
+      "identityNumber": "234567890",
+      "phoneNumber": "0912345678",
+      "email": "phamthid@example.com",
+      "customerType": {
+        "id": 1,
+        "type": "Diamond"
+      }
+    },
+    {
+      "id": 5,
+      "fullName": "Hoang Van E",
+      "dateOfBirth": "1980-11-02",
+      "gender": "1",
+      "identityNumber": "345678901",
+      "phoneNumber": "0890123456",
+      "email": "hoangvane@example.com",
+      "customerType": {
+        "id": 1,
+        "type": "Diamond"
+      }
+    },
+    {
+      "id": 6,
+      "fullName": "Tran Van F",
+      "dateOfBirth": "1995-09-12",
+      "gender": "1",
+      "identityNumber": "456789012",
+      "phoneNumber": "0765432198",
+      "email": "tranvanf@example.com",
+      "customerType": {
+        "id": 1,
+        "type": "Diamond"
+      }
+    },
+    {
+      "id": 7,
+      "fullName": "Nguyen Thi G",
+      "dateOfBirth": "1987-04-30",
+      "gender": "0",
+      "identityNumber": "678901234",
+      "phoneNumber": "0976543210",
+      "email": "nguyenthig@example.com",
+      "customerType": {
+        "id": 1,
+        "type": "Diamond"
+      }
+    },
+    {
+      "id": 8,
+      "fullName": "Le Van H",
+      "dateOfBirth": "1993-12-08",
+      "gender": "1",
+      "identityNumber": "789012345",
+      "phoneNumber": "0854321098",
+      "email": "levanh@example.com",
+      "customerType": {
+        "id": 1,
+        "type": "Diamond"
+      }
+    },
+    {
+      "fullName": "Hy tesst add",
+      "dateOfBirth": "2023-09-20",
+      "gender": "0",
+      "identityNumber": 123,
+      "phoneNumber": "",
+      "email": 123,
+      "customerType": {
+        "id": 1,
+        "type": "Diamond"
+      },
+      "id": 9
+    }
+  ],
+  "contract": [
+    {}
+  ],
+  "customerType": [
+    {
+      "id": 1,
+      "type": "Diamond"
+    },
+    {
+      "id": 2,
+      "type": "Platinum"
+    },
+    {
+      "id": 3,
+      "type": "Gold"
+    },
+    {
+      "id": 4,
+      "type": "Silver"
+    }
+  ]
+}

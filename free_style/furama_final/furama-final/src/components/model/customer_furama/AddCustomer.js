@@ -1,59 +1,76 @@
-import React, { useEffect, useState } from "react";
-import * as service from "../service/Service";
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useEffect, useState } from "react";
+import * as customerService from "../../../service/customer_service/customerService";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import { useNavigate, useParams } from "react-router-dom";
-export const Update = () => {
-  const navigate = useNavigate();
-  const param = useParams();
-  const [customerType, setCustomerType] = useState([]);
-  const [customer, setCustomer] = useState([]);
-  const getCustomerType = async () => {
-    const data = await service.getCustomerType();
-    setCustomerType(data);
-  };
 
-  const getCustomerById = async (id) => {
-    const data = await service.findById(id);
-    setCustomer(data);
+export const AddCustomer = () => {
+  const [customerType, setCustomerType] = useState([]);
+  const navigate = useNavigate();
+  const [token, setToken] = useState();
+
+  const getTokenFromLocalStorage = async () => {
+     // Lấy token từ localStorage
+     const token = await localStorage.getItem("token");
+     setToken(token);
+   };
+  const getCustomerType = async (token) => {
+    const dataCustomerType = await customerService.getCustomerType(token);
+    setCustomerType(dataCustomerType);
   };
   useEffect(() => {
-    getCustomerById(param.id);
-    getCustomerType();
-  }, []);
-
+    getTokenFromLocalStorage()
+    if (token) {
+    getCustomerType(token);
+    }
+  }, [token]);
   return (
     <>
+      <h3 style={{ textAlign: "center" }}>Add Customer</h3>
       <Formik
-        enableReinitialize={true}
         initialValues={{
-          id: customer.id,
-          name: customer.name,
-          birthday: customer.birthday,
-          phone: customer.phone,
-          gender: customer.gender,
-          email: customer.email,
-          address: customer.address,
-          customerType: JSON.stringify(customer.customerType),
+          name: undefined,
+          birthDay: undefined,
+          gender: "0",
+          idCard: undefined,
+          phone: undefined,
+          email: undefined,
+          address: undefined,
+          customerType: [],
         }}
-        onSubmit={async (values) => {
+        onSubmit={async (values, { setSubmitting }) => {
           const obj = {
             ...values,
             customerType: JSON.parse(values.customerType),
+            gender: parseInt(values.gender),
           };
-          await service.update(param.id, obj);
-          toast.success("Update mới thành công !!");
-          navigate("/");
+          await customerService.add(obj,token);
+          setSubmitting(false);
+          toast.success("Thêm mới thành công!!");
+          navigate("/customer");
         }}
-        validationSchema={Yup.object({
-          name: Yup.string().required("Không để trống!!"),
-          birthday: Yup.string().required("Không để trống!!"),
-          phone: Yup.number().required("Không để trống!!"),
-          email: Yup.string().required("Không để trống!!"),
-          address: Yup.string().required("Không để trống!!"),
+        validationSchema={Yup.object({ 
+          name: Yup.string()
+            .required("Required")
+            .matches(/^[A-Z][a-z]*( [A-Z][a-z]*)*$/),
+          birthDay: Yup.string().required("Required"),
+          idCard: Yup.string()
+            .required("Required")
+            .matches(
+              /^[0-9]{9}$|^[0-9]{12}$/,
+              "ID Card must be 9 or 12 digits"
+            ),
+          phone: Yup.string()
+            .required("Required")
+            .matches(/^090\d{7}$|^091\d{7}$/, "Invalid phone number"),
+          email: Yup.string()
+            .required("Required")
+            .matches(/^[a-z0-9]+@gmail\.com$/, "Invalid email"),
+          address: Yup.string().required("Required"),
         })}
       >
+
         <Form>
           <div className="mb-3">
             <label htmlFor="image" className="form-label">
@@ -66,7 +83,7 @@ export const Update = () => {
               placeholder="Enter Full Name"
               name="name"
               de
-            />
+            />{" "}
             <ErrorMessage
               className="form-err"
               name="name"
@@ -75,41 +92,23 @@ export const Update = () => {
           </div>
 
           <div className="mb-3">
-            <label htmlFor="image" className="form-label">
-              birthday
+            <label htmlFor="dateOfBirth" className="form-label">
+              Date Of Birth
             </label>
             <Field
               type="date"
               className="form-control"
-              id="fullName"
-              placeholder="Enter Full Name"
-              name="birthday"
-              de
-            />
+              id="dateOfBirth"
+              placeholder="Enter Date Of Birth"
+              name="birthDay"
+            />{" "}
             <ErrorMessage
               className="form-err"
-              name="birthday"
+              name="birthDay"
               component="span"
             ></ErrorMessage>
           </div>
-          <div className="mb-3">
-            <label htmlFor="image" className="form-label">
-              phone
-            </label>
-            <Field
-              type="number"
-              className="form-control"
-              id="fullName"
-              placeholder="Enter Full Name"
-              name="phone"
-              de
-            />
-            <ErrorMessage
-              className="form-err"
-              name="phone"
-              component="span"
-            ></ErrorMessage>
-          </div>
+
           <div className="mb-3">
             <label className="form-label"> Giới tính </label>
             <div className="form-check">
@@ -136,6 +135,41 @@ export const Update = () => {
                 Nữ
               </label>
             </div>
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="idCard" className="form-label">
+              CMND / CCCD
+            </label>
+            <Field
+              type="text"
+              className="form-control"
+              id="idCard"
+              placeholder="Enter CMND / CCCD"
+              name="idCard"
+            />
+            <ErrorMessage
+              className="form-err"
+              name="idCard"
+              component="span"
+            ></ErrorMessage>
+          </div>
+          <div className="mb-3">
+            <label htmlFor="phoneNumber" className="form-label">
+              Phone Number
+            </label>
+            <Field
+              type="text"
+              className="form-control"
+              id="phoneNumber"
+              placeholder="Enter Phone Number"
+              name="phone"
+            />
+            <ErrorMessage
+              className="form-err"
+              name="phone"
+              component="span"
+            ></ErrorMessage>
           </div>
           <div className="mb-3">
             <label htmlFor="email" className="form-label">
@@ -171,6 +205,7 @@ export const Update = () => {
               component="span"
             ></ErrorMessage>
           </div>
+
           <div className="mb-3">
             <label htmlFor="customerType" className="form-label">
               Customer Type
@@ -186,11 +221,15 @@ export const Update = () => {
               </option>
 
               {customerType.map((value) => (
-                <option value={JSON.stringify(value)} key={value.id}>
-                  {value.name}
-                </option>
+                <option value={JSON.stringify(value)}>{value.name}</option>
               ))}
             </Field>
+          </div>
+
+          <div
+            className="d-flex justify-content-center"
+            style={{ marginBottom: "20px" }}
+          >
             <button type="submit" className="btn btn-primary">
               Add
             </button>

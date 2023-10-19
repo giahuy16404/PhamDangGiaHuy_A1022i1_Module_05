@@ -13,11 +13,11 @@ function App() {
     <>
       <div className="container">
         <BrowserRouter>
-        <Routes>
-          <Route path="/add" element={<Add />}></Route>
-          <Route path="/update/:id" element={<Update />}></Route>
-          <Route path="/" element={<List />}></Route>
-        </Routes>
+          <Routes>
+            <Route path="/add" element={<Add />}></Route>
+            <Route path="/update/:id" element={<Update />}></Route>
+            <Route path="/" element={<List />}></Route>
+          </Routes>
         </BrowserRouter>
         <ToastContainer />
       </div>

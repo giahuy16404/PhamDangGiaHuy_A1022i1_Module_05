@@ -11,9 +11,14 @@ export const getPage = async (page) => {
   }
 };
 
-export const getList = async () => {
+export const getList = async (token) => {
   try {
-    const data = await axios.get(`http://localhost:8080/api/service/getList`);
+    const data = await axios.get(`http://localhost:8080/api/service/getList`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return data.data;
   } catch (e) {
     console.log(e);

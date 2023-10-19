@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
 import * as service from "../service/Service";
 import { Field, Form, Formik } from "formik";
-import { NavLink } from "react-router-dom";
-import { ModalRemove } from "./ModalRemove";
+import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 export const List = () => {
-  const [customerList, setCustomerList] = useState([]);
-  const [page, setPage] = useState(1);
-
+  const [list, setList] = useState([]);
+  const navigate = useNavigate();
   //modal remove
   const [openModalRemove, setOpenModalRemove] = useState(false);
-  const [idRemove, setIdRemove] = useState();
-
+  const [flag, setFlag] = useState(true);
   const handleOpenModalRemove = () => {
     setOpenModalRemove(true);
   };
@@ -19,35 +16,50 @@ export const List = () => {
     setOpenModalRemove(false);
   };
   const handleRemove = async () => {
-    await service.remove(idRemove);
-    await getCustomerList(1);
+    // await service.remove(idRemove);
     toast.success("Xóa thành công !!");
+  };
+  const [category, setCategory] = useState([]);
+  const getCategory = async () => {
+    const data = await service.getCategory();
+    setCategory(data);
   };
 
   //phan trang
-  const handleNextPage = () => {
-    setPage((prev) => prev + 1);
+  // const handleNextPage = () => {
+  //   setPage((prev) => prev + 1);
+  // };
+  // const handlePreviousPage = () => {
+  //   setPage((prev) => prev - 1);
+  // };
+
+  const getList = async () => {
+    const data = await service.getList();
+    setList(data);
   };
-  const handlePreviousPage = () => {
-    setPage((prev) => prev - 1);
+  const backList = async () => {
+    await getList();
+    setFlag(true);
   };
 
-  const getCustomerList = async (page) => {
-    const data = await service.getList(page);
-    setCustomerList(data);
-  };
-
+  //goi list ddaauf tien
   useEffect(() => {
-    getCustomerList(page);
-  }, [page]);
+    getList();
+    getCategory();
+  }, []);
 
   //search
   const handleSearchByName = async (name) => {
     const data = await service.searchByName(name);
-    setCustomerList(data);
+    setList(data);
+    return data;
+  };
+  const handleSearchByCategory = async (category) => {
+    const data = await service.searchByCategory(category);
+    setList(data);
   };
 
-  //format date
+  // format date
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const day = date.getDate().toString().padStart(2, "0");
@@ -59,29 +71,32 @@ export const List = () => {
   return (
     <>
       <Formik
-      // initialValues={{
-      //   search: "",
-      // }}
-      // onSubmit={async (values) => {
-      //   const searchByName = await customerService.searchByName(
-      //     values.search
-      //   );
-      //   setCustomerList(searchByName);
-      // }}
+        initialValues={{
+          search: "",
+        }}
+        onSubmit={async (values, { resetForm }) => {
+          console.log(values.search);
+          const dataSearch = await handleSearchByName(values.search);
+          if (dataSearch.length === 0) {
+            setFlag(false);
+            navigate("/");
+          } else {
+            setFlag(true);
+          }
+          resetForm(true);
+          // setFlag(false);
+        }}
       >
         <Form>
           <nav className="navbar bg-body-tertiary">
             <div className="container-fluid">
               {/* <a className="navbar-brand">Navbar</a> */}
-              <input
+              <Field
                 className="form-control me-2"
                 type="text"
                 placeholder="search"
                 aria-label="search"
                 name="search"
-                onChange={(value) => {
-                  handleSearchByName(value.target.value);
-                }}
               />
               <button className="btn btn-outline-success" type="submit">
                 Search
@@ -90,65 +105,67 @@ export const List = () => {
           </nav>
         </Form>
       </Formik>
+
+      <div className="mb-3">
+        <label htmlFor="customerType" className="form-label">
+          Category
+        </label>
+        <select
+          as="select"
+          className="form-select"
+          id="customerType"
+          name="customerType"
+          onChange={(e) => handleSearchByCategory(e.target.value)}
+        >
+          <option value="" selected>
+            Select Category
+          </option>
+
+          {category.map((value) => (
+            <option value={value.name} key={value.id}>
+              {value.name}
+            </option>
+          ))}
+        </select>
+      </div>
       <h3
         style={{ textAlign: "center", marginTop: "50px", marginBottom: "20px" }}
       >
-        <NavLink to={"/add"}>
-          {" "}
-          <button type="submit" className="btn btn-primary">
-            Add
-          </button>
-        </NavLink>
         Customer
       </h3>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Stt</th>
-            <th scope="col">Full Name</th>
-            <th scope="col">Date Of Birth</th>
-            <th scope="col">Gender</th>
-            <th scope="col">Phone Number</th>
-            <th scope="col">Email</th>
-            <th scope="col">CustomerType</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {customerList.map((value, index) => (
-            <tr key={value.id}>
-              <th scope="row">{index + 1}</th>
-              <td>{value.name}</td>
-              <td>{formatDate(value.birthday)}</td>
-              <td>{value.gender === true ? "Nam" : "Nu"}</td>
-              <td>{value.phone}</td>
-              <td>{value.email}</td>
-              <td>{value.customerType.name}</td>
-              <td>
-                <div className="d-flex justify-content-between">
-                  <NavLink to={`/update/${value.id}`}>
-                    <button type="button" className="btn btn-success btn-sm">
-                      Update
-                    </button>
-                  </NavLink>
-
-                  <button
-                    type="button"
-                    className="btn btn-danger btn-sm"
-                    onClick={() => {
-                      handleOpenModalRemove();
-                      setIdRemove(value.id);
-                    }}
-                    style={{ marginRight: "10px" }}
-                  >
-                    Remove
-                  </button>
-                </div>
-              </td>
+      {flag ? (
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Stt</th>
+              <th scope="col">Code</th>
+              <th scope="col">Name</th>
+              <th scope="col">Category</th>
+              <th scope="col">Quanlity</th>
+              <th scope="col">Day</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {list.map((value, index) => (
+              <tr key={value.id}>
+                <td>{index + 1}</td>
+                <td>{value.code}</td>
+                <td>{value.name}</td>
+                <td>{value.category.name}</td>
+                <td>{value.quanlity}</td>
+                <td>{formatDate(value.day)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <>
+          <h1> Không có thông tin sách này!!</h1>
+          <button onClick={backList} className="btn btn-primary">
+            backList
+          </button>
+        </>
+      )}
 
       <div
         style={{
@@ -158,49 +175,13 @@ export const List = () => {
           marginTop: "20px",
         }}
       >
-        {/* <NavLink to={"/customer/add"}>
-          <button type="button" class="btn btn-primary">
-            Add Customer
+        <NavLink to={"/add"}>
+          {" "}
+          <button type="submit" className="btn btn-primary">
+            Add
           </button>
-        </NavLink> */}
+        </NavLink>
       </div>
-      {/* Pagination */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginBottom: "50px",
-        }}
-      >
-        <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            <li class="page-item">
-              <button class="page-link" onClick={handlePreviousPage}>
-                Previous
-              </button>
-            </li>
-            <li class="page-item">
-              <span class="page-link">{page}</span>
-            </li>
-            <li class="page-item">
-              <span class="page-link">/</span>
-            </li>
-            <li class="page-item">
-              <button class="page-link" onClick={handleNextPage}>
-                Next
-              </button>
-            </li>
-          </ul>
-        </nav>
-      </div>
-
-      {openModalRemove && (
-        <ModalRemove
-          openModal={openModalRemove}
-          closeModal={handleCloseModalRemove}
-          handleRemove={handleRemove}
-        />
-      )}
     </>
   );
 };

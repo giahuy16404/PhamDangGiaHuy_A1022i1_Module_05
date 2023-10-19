@@ -1,0 +1,92 @@
+{
+  "lession": [
+    {
+      "id": 1,
+      "name": "Lesson 1 - Introduction to React Components",
+      "description": "Learn the basics of React components."
+    },
+    {
+      "id": 2,
+      "name": "Lesson 2 - State and Props",
+      "description": "Understanding state and props in React."
+    },
+    {
+      "id": 3,
+      "name": "Lesson 3 - Advanced State Management",
+      "description": "Advanced state management techniques in React."
+    },
+    {
+      "id": 4,
+      "name": "Lesson 4 - Redux and Context API",
+      "description": "Learn how to use Redux and Context API for state management."
+    }
+  ],
+  "course": [
+    {
+      "id": 1,
+      "name": "Khoa hoc 1",
+      "description": "ABC",
+      "lession": [
+        {
+          "id": 1,
+          "name": "Lesson 1 - Introduction to React Components",
+          "description": "Learn the basics of React components."
+        },
+        {
+          "id": 2,
+          "name": "Lesson 2 - State and Props",
+          "description": "Understanding state and props in React."
+        }
+      ]
+    },
+    {
+      "name": "Phạm Đặng Gia Huy",
+      "description": "123",
+      "lession": [
+        {
+          "id": 1,
+          "name": "Lesson 1 - Introduction to React Components",
+          "description": "Learn the basics of React components."
+        },
+        {
+          "id": 2,
+          "name": "Lesson 2 - State and Props",
+          "description": "Understanding state and props in React."
+        },
+        {
+          "id": 3,
+          "name": "Lesson 3 - Advanced State Management",
+          "description": "Advanced state management techniques in React."
+        },
+        {
+          "id": 4,
+          "name": "Lesson 4 - Redux and Context API",
+          "description": "Learn how to use Redux and Context API for state management."
+        }
+      ],
+      "id": 2
+    },
+    {
+      "name": "Phạm Đặng Gia Huy",
+      "description": "123",
+      "lession": [
+        {
+          "id": 1,
+          "name": "Lesson 1 - Introduction to React Components",
+          "description": "Learn the basics of React components."
+        },
+        {
+          "id": 2,
+          "name": "Lesson 2 - State and Props",
+          "description": "Understanding state and props in React."
+        },
+        {
+          "id": 3,
+          "name": "Lesson 3 - Advanced State Management",
+          "description": "Advanced state management techniques in React."
+        }
+      ],
+      "id": 3
+    }
+  ]
+}
